@@ -1,0 +1,44 @@
+{
+  "name": "parttimescheduler",
+  "version": "1.0.0",
+  "description": "MERN Stack Application for scheduling part-time slots\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Dshift slots\u001b[B",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boscosylvester-john/parttimeScheduler.git"
+  },
+  "keywords": [
+    "react",
+    "rest",
+    "express",
+    "mongodb",
+    "nodejs"
+  ],
+  "author": "Boscosylvester John Chittilapilly, Shlok Vivek Naik, Prasad Vithal Kamath, Tushar Kini, Ankur Banerji",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boscosylvester-john/parttimeScheduler/issues"
+  },
+  "homepage": "https://github.com/boscosylvester-john/parttimeScheduler#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.6.4",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.1.2",
+    "validator": "^13.7.0"
+  }
+}
