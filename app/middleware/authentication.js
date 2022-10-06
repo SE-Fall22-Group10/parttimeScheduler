@@ -18,9 +18,8 @@ userLogin = async(req, res, next) => {
             return res.status(400).send('Cannot Find User')
         }
         var accessTokenUser = {
-            username: user.username,
-            emailConfirmed: user.emailConfirmed,
-            email: user.email
+            email: user.email,
+            password: user.password
         }
         const accessToken = jwt.sign(JSON.stringify(accessTokenUser), process.env.JWT_SECRET_TOKEN)
         // req.session.accessToken = accessToken

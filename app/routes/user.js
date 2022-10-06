@@ -61,8 +61,15 @@ router.get('/users', adminAuth, async(req, res) =>{
 //Employee login
 router.post('/login', auth, async(req, res) =>{
     try{
-        res.status(200).send()
-    } catch(e) {
+        const {
+            email,
+            password,
+            role
+        } = req.body
+        var loggeduser = await User.findOne({email: email})
+        res.status(200).send(loggeduser)
+          }
+     catch(e) {
         console.log(e)
         res.status(400).send(e)
     }
