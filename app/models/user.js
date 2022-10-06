@@ -37,6 +37,17 @@ const UserSchema = new Schema({
       storeName: {
         type: String,
         required: true
+      },
+      shiftToggle: {
+        type: Number,
+        required: false,
+        default: 0,
+        enum: [0,1]
+      },
+      bidderList: {
+        type: [String],
+        required: false,
+        default: []
       }
     }
   ]
