@@ -27,7 +27,7 @@ router.post('/addStore', adminAuth, async(req, res) =>{
             storeName
         } = req.body
         if(!storeName){
-            return res.status(400).send("All fields have not been filled!")
+            return res.status(400).send("Store Name empty!")
         }
 
         // Creating Store object.
