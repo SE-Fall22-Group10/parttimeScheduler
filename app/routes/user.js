@@ -11,7 +11,7 @@ const jwt = require("jsonwebtoken");
 //Get all users
 router.get("/users", adminAuth, async (req, res) => {
   try {
-    var users = await User.find().pretty();
+    var users = await User.find();
     res.status(200).send(JSON.stringify(users));
   } catch (e) {
     console.log(e);
@@ -19,34 +19,17 @@ router.get("/users", adminAuth, async (req, res) => {
   }
 });
 
-//POST-method
-//Add shift to user object
-var ObjectID = require('mongodb').ObjectId;
-
-router.post("/usershift", async (req, res) => {
+// GET-method
+// Get all details one user
+router.post("/getUserDetails", async (req, res) =>{
   try {
-    console.log(req.body);
-    var sch = {
-        "shiftFrom": req.body.shiftFrom,
-        "shiftTill": req.body.shiftTill,
-        "storeName": req.body.storeName
-      };
-      console.log(sch);
-    // Send response in here
-    
-    var f =await User.findOne({email: req.body.email});
-    f.shifts.push(sch);
-    await f.save()
-    res.status(200).send(f);
- } catch (e) {
-    if (e.code === 11000) {
-      res.status(409).send({ Message: "User Already Exists" });
-    } else {
+      var f =await User.findOne({email: req.body.email});
+      res.status(200).send(f);
+  } catch (e) {
       console.log(e);
       res.status(400).send(e);
-    }
   }
-});
+})
 
 //POST-method
 //Creating Employee logins - for supervisors
