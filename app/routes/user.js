@@ -46,7 +46,7 @@ router.get('/users', adminAuth, async(req, res) =>{
         
         //Saving User object to the db.
         await user.save()
-        res.status(201).send()
+        res.status(201).send({ "Message": "User Added" })
     } catch(e) {
         if(e.code === 11000){
             res.status(409).send({ "Message": "User Already Exists" })
