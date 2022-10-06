@@ -1,2 +1,1 @@
-export interface LoginInterface {
-}
+export type LoginInterface = Record<string, unknown>;

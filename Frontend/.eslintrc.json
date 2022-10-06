@@ -26,5 +26,7 @@
         "react"
     ],
     "rules": {
-    }
+        "singleAttributePerLine": true
+    },
+    "ignorePatterns": ["src/reportWebVitals.ts"]
 }
