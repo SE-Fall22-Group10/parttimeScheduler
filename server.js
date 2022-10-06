@@ -3,7 +3,6 @@ var app = express()
 require('dotenv').config()
 require('./app/db/mongoose')
 var PORT = process.env.PORT || 5000
-var userRouter = require('./app/routes/user')
 const bodyParser = require('body-parser')
 var auth = require('./app/middleware/authentication')
 var adminAuth = require('./app/middleware/adminAuth')
@@ -23,8 +22,12 @@ app.get('/', auth, (req, res) => {
     res.send("Hello There!")
 })
 
+var userRouter = require('./app/routes/user')
+var storeRouter = require('./app/routes/store')
+
 // Setting up Routers
 app.use(userRouter)
+app.use(storeRouter)
 
 // Error Page
 app.get('*', (req, res) => {
