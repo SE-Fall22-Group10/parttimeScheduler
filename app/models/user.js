@@ -24,7 +24,22 @@ const UserSchema = new Schema({
     enum: ["Employee", "Supervisor"],
     required: true,
   },
-  shifts : Array
+  shifts : [
+    {
+      shiftFrom: {
+        type: Date,
+        required: true
+      },
+      shiftTill: {
+        type: Date,
+        required: true
+      },
+      storeName: {
+        type: String,
+        required: true
+      }
+    }
+  ]
 });
 
 module.exports = mongoose.model("user", UserSchema);
