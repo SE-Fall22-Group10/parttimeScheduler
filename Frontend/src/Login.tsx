@@ -1,8 +1,6 @@
-import React from "react"
-import { LoginInterface } from "./interface"
+import React from 'react';
+import type {LoginInterface} from './interface';
 
-const Login: React.FC<LoginInterface> = (): JSX.Element => {
-    return (<div></div>)
-}
+const Login: React.FC<LoginInterface> = (): JSX.Element => (<div></div>);
 
-export default Login
+export default Login;
