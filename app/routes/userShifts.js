@@ -54,15 +54,13 @@ router.post("/updateShift", async (req, res) => {
             shiftTill: shiftTill,
             storeName: storeName
         };
-        console.log("this is the id");
-        console.log(shiftId);
-
+        
         if (!shiftFrom || !shiftTill) {
             return res.status(400).send("Time not in required format!");
         }
         var f = await User.findOne({email: req.body.email});
         for(let shift of f["shifts"]){
-            console.log(shift["_id"] == shiftId);
+            // console.log(shift["_id"] == shiftId);
             if(shift["_id"] == shiftId){
                 shift["shiftFrom"] = shiftFrom;
                 shift["shiftTill"] = shiftTill;
@@ -71,7 +69,6 @@ router.post("/updateShift", async (req, res) => {
             }
         }
         f.save()
-        console.log("hello");
         res.status(200).send(f);
     }catch (e) {
         if (e.code === 11000) {
