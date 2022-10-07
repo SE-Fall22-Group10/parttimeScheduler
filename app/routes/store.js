@@ -48,6 +48,49 @@ router.post('/addStore', adminAuth, async(req, res) =>{
             res.status(400).send(e)
         }
     }
+});
+
+// POST-method
+// Add a employee to store
+router.post('/addEmployeeToStore', adminAuth, async(req, res) =>{
+    try{
+        const {
+            employeeEmail
+        } = req.body
+        if(!employeeEmail){
+            return res.status(400).send("Employee email cannot be empty!")
+        }
+        var f = await Store.findOne({ storeName: req.body.storeName });
+        console.log(f);
+        var emailAlreadyExists = false;
+        f.employeeEmails.forEach((email)=>{
+            console.log(email);
+            if(email == employeeEmail){                
+                emailAlreadyExists = true;
+            }
+        });
+        // for(let employee in f["employeeEmails"]){
+        //     console.log(employee);
+        //     if(employee == employeeEmail){
+                
+        //         res.status(409).send({ "Message": "User Already Exists" })
+        //     }
+        // }
+        if(!emailAlreadyExists){
+            f.employeeEmails.push(employeeEmail);
+            await f.save();
+            res.status(200).send(f);
+        }else{            
+            res.status(409).send({ "Message": "User Already Exists" });
+        }
+    } catch(e) {
+        if(e.code === 11000){
+            res.status(409).send({ "Message": "User Already Exists" })
+        }else{
+            console.log(e)
+            res.status(400).send(e)
+        }
+    }
 })
 
 module.exports = router
