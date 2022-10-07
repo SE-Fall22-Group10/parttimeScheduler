@@ -24,15 +24,17 @@ router.get('/stores', adminAuth, async(req, res) =>{
 router.post('/addStore', adminAuth, async(req, res) =>{
     try{
         const {
-            storeName
+            storeName,
+            supervisorEmail
         } = req.body
-        if(!storeName){
-            return res.status(400).send("Store Name empty!")
+        if(!storeName || !supervisorEmail){
+            return res.status(400).send("Store Name or supervisor email cannot be empty!")
         }
 
         // Creating Store object.
         var store = new Store({
-            storeName
+            storeName,
+            supervisorEmail
         });
         
         //Saving Store object to the db.
