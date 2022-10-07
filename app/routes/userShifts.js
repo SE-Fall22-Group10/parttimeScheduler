@@ -41,9 +41,51 @@ router.post("/addShift", async (req, res) => {
   }
 });
 
+// POST-method
+// update shift details for a user
+router.post("/updateShift", async (req, res) => {
+    try{
+        const shiftFrom = Date.parse(req.body.shiftFrom);
+        const shiftTill = Date.parse(req.body.shiftTill);
+        const storeName = req.body.storeName;
+        const shiftId = req.body.shiftId;
+        const sch = { 
+            shiftFrom: shiftFrom, 
+            shiftTill: shiftTill,
+            storeName: storeName
+        };
+        console.log("this is the id");
+        console.log(shiftId);
+
+        if (!shiftFrom || !shiftTill) {
+            return res.status(400).send("Time not in required format!");
+        }
+        var f = await User.findOne({email: req.body.email});
+        for(let shift of f["shifts"]){
+            console.log(shift["_id"] == shiftId);
+            if(shift["_id"] == shiftId){
+                shift["shiftFrom"] = shiftFrom;
+                shift["shiftTill"] = shiftTill;
+                shift["storeName"] = storeName;
+                break;               
+            }
+        }
+        f.save()
+        console.log("hello");
+        res.status(200).send(f);
+    }catch (e) {
+        if (e.code === 11000) {
+            res.status(409).send({ Message: "Shift not found" });
+        } else {
+        console.log(e);
+        res.status(400).send(e);
+        }
+    }
+});
+
 //POST-method
 //Offer Shift to Bidders or Traders
-router.post("/offershift", async (req, res) => {
+router.post("/offerShift", async (req, res) => {
   try {
     console.log(req.body);
     var f = await User.findOne({ email: req.body.email });
