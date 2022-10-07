@@ -143,15 +143,15 @@ router.post("/tradeShift", async (req, res) => {
     var g = await User.findOne({ email: req.body.email2 });
     var ff = f.shifts;
     var gg = g.shifts;
-    if (ff[req.body.id1].storeName != gg[req.body.id2].storeName) {
+    if (ff[req.body.indexOfShift1].storeName != gg[req.body.indexOfShift2].storeName) {
       return res.status(400).send("Shift exchange not authorized!");
     }
 
-    [ff[req.body.id1].shiftFrom, gg[req.body.id2].shiftFrom] = [gg[req.body.id2].shiftFrom,ff[req.body.id1].shiftFrom];
+    [ff[req.body.indexOfShift1].shiftFrom, gg[req.body.indexOfShift2].shiftFrom] = [gg[req.body.indexOfShift2].shiftFrom,ff[req.body.indexOfShift1].shiftFrom];
     
-    [ff[req.body.id1].shiftTill, gg[req.body.id2].shiftTill] = [gg[req.body.id2].shiftTill,ff[req.body.id1].shiftTill];
-    ff[req.body.id1].shiftToggle = 0;
-    gg[req.body.id2].shiftToggle = 0;
+    [ff[req.body.indexOfShift1].shiftTill, gg[req.body.indexOfShift2].shiftTill] = [gg[req.body.indexOfShift2].shiftTill,ff[req.body.indexOfShift1].shiftTill];
+    ff[req.body.indexOfShift1].shiftToggle = 0;
+    gg[req.body.indexOfShift2].shiftToggle = 0;
     //send index instead of obj id
     await f.save();
     await g.save();
