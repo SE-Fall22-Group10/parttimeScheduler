@@ -1,0 +1,44 @@
+{
+	"users":[
+		{
+			"username": "Bosco",
+			"userEmail": "bosco@gmail.com",
+			"password": "bosco",
+			"userRole": "StudentEmployee",
+			"shifts": [
+				{
+				"shiftID": 1,
+				"shiftStart": "10/7/22 10am",
+				"shiftEnd": "10/7/22 5pm",
+				"storeName": "Jason's Dali"
+				},
+				{
+					"shiftID": 2,
+					"shiftStart": "11/7/22 10am",
+					"shiftEnd": "11/7/22 5pm",
+					"storeName": "Jason's Dali"
+					}
+			]
+		},
+		{
+			"username": "Prasad",
+			"userEmail": "prasad@gmail.com",
+			"password": "prasad",
+			"userRole": "StudentEmployee",
+			"shifts": [
+				{
+				"shiftID": 3,
+				"shiftStart": "10/7/22 10am",
+				"shiftEnd": "10/7/22 5pm",
+				"storeName": "Jason's Dali"
+				},
+				{
+					"shiftID": 4,
+					"shiftStart": "11/7/22 10am",
+					"shiftEnd": "11/7/22 5pm",
+					"storeName": "Jason's Dali"
+				}
+			]
+		}
+	]
+}
