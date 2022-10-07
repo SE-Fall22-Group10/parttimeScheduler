@@ -85,9 +85,15 @@ router.post("/updateShift", async (req, res) => {
 router.post("/offerShift", async (req, res) => {
   try {
     console.log(req.body);
+    const shiftId = req.body.shiftId;
     var f = await User.findOne({ email: req.body.email });
-    var ff = f.shifts;
-    ff[req.body.id].shiftToggle = 1;
+    for(let shift of f["shifts"]){
+      // console.log(shift["_id"] == shiftId);
+      if(shift["_id"] == shiftId){
+          shift["shiftToggle"] = 1;
+          break;               
+      }
+  }
     //send index instead of obj id
     await f.save();
     res.status(200).send(f);
@@ -106,9 +112,16 @@ router.post("/offerShift", async (req, res) => {
 router.post("/applybid", async (req, res) => {
   try {
     console.log(req.body);
+    const shiftId = req.body.shiftId;
+    const takerid = req.body.takerid;
     var f = await User.findOne({ email: req.body.email });
-    var ff = f.shifts;
-    ff[req.body.id].bidderList.push(req.body.userid);
+    for(let shift of f["shifts"]){
+      // console.log(shift["_id"] == shiftId);
+      if(shift["_id"] == shiftId){
+          shift["bidderList"].push(takerid);
+          break;               
+      }
+  }
     //send index instead of obj id
     await f.save();
     res.status(200).send(f);
@@ -133,6 +146,7 @@ router.post("/tradeshift", async (req, res) => {
     if (ff[req.body.id1].storeName != gg[req.body.id2].storeName) {
       return res.status(400).send("Shift exchange not authorized!");
     }
+
     [ff[req.body.id1].shiftFrom, gg[req.body.id2].shiftFrom] = [gg[req.body.id2].shiftFrom,ff[req.body.id1].shiftFrom];
     
     [ff[req.body.id1].shiftTill, gg[req.body.id2].shiftTill] = [gg[req.body.id2].shiftTill,ff[req.body.id1].shiftTill];
@@ -142,6 +156,33 @@ router.post("/tradeshift", async (req, res) => {
     await f.save();
     await g.save();
     res.status(200).send("done");
+  } catch (e) {
+    if (e.code === 11000) {
+      res.status(409).send({ Message: "Shift not found" });
+    } else {
+      console.log(e);
+      res.status(400).send(e);
+    }
+  }
+});
+
+//DELETE-method
+//remove shift
+router.delete("/removeshift", async (req, res) => {
+  try {
+    console.log(req.body);
+    const shiftId = req.body.shiftId;
+    var f = await User.findOne({ email: req.body.email });
+    for(let shift of f["shifts"]){
+      if(shift["_id"] == shiftId){
+          f["shifts"].pop(shift);
+          console.log(shift);
+          break;               
+      }
+  }
+    //send index instead of obj id
+    await f.save();
+    res.status(200).send(f);
   } catch (e) {
     if (e.code === 11000) {
       res.status(409).send({ Message: "Shift not found" });
