@@ -125,10 +125,10 @@ describe("Offer Shifts", () => {
     };
     beforeAll(async () => {
       // set up the todo
-      await request(baseURL).post("/applybid").send(data);
+      await request(baseURL).post("/applyBid").send(data);
     });
     it("Should return status 200", async () => {
-      const response = await request(baseURL).get("/applybid");
+      const response = await request(baseURL).get("/applyBid");
       expect(response.statusCode).toBe(200);
     });
   });
@@ -143,10 +143,10 @@ describe("Offer Shifts", () => {
     };
     beforeAll(async () => {
       // set up the todo
-      await request(baseURL).post("/tradeshift").send(data);
+      await request(baseURL).post("/tradeShift").send(data);
     });
     it("Should return status 200", async () => {
-      const response = await request(baseURL).get("/tradeshift");
+      const response = await request(baseURL).get("/tradeShift");
       expect(response.statusCode).toBe(200);
     });
   });

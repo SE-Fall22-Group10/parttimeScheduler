@@ -109,7 +109,7 @@ router.post("/offerShift", async (req, res) => {
 
 //POST-method
 //Apply for bidding
-router.post("/applybid", async (req, res) => {
+router.post("/applyBid", async (req, res) => {
   try {
     console.log(req.body);
     const shiftId = req.body.shiftId;
@@ -137,7 +137,7 @@ router.post("/applybid", async (req, res) => {
 
 //POST-method
 //Trade shifts with another employee
-router.post("/tradeshift", async (req, res) => {
+router.post("/tradeShift", async (req, res) => {
   try {
     var f = await User.findOne({ email: req.body.email1 });
     var g = await User.findOne({ email: req.body.email2 });
@@ -168,7 +168,7 @@ router.post("/tradeshift", async (req, res) => {
 
 //DELETE-method
 //remove shift
-router.delete("/removeshift", async (req, res) => {
+router.delete("/removeShift", async (req, res) => {
   try {
     console.log(req.body);
     const shiftId = req.body.shiftId;
