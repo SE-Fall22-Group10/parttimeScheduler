@@ -6,9 +6,10 @@ import Login from '../login/Login';
 
 const MainPage: React.FC = (): JSX.Element => {
 	const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
-	const [userData, setUserData] = useState<UserDetailsObject>(undefined);
+	const [userData, setUserData] = useState<UserDetailsObject>();
+
 	return (<>
-		{isUserLoggedIn && userData ? <HomePage userData={userData} /> : <Login setIsUserLoggedIn={setIsUserLoggedIn} />}
+		{isUserLoggedIn && userData ? <HomePage userData={userData} /> : <Login setIsUserLoggedIn={setIsUserLoggedIn} setUserData={setUserData} />}
 	</>);
 };
 

@@ -1,29 +1,40 @@
 import React, {useState} from 'react';
-import {Button} from 'react-bootstrap';
-import {getUserAfterVerification} from '../../apiCalls';
-import type {LoginProps} from '../../interface';
-import './Login.css';
+import {Button, Container} from 'react-bootstrap';
+import type {LoginProps, UserDetailsObject} from '../../interface';
+import {verifyUserLogin} from '../../utils';
+import HomePage from '../homePage/HomePage';
+// Import loginCss from './Login.module.css';
 
 const Login: React.FC<LoginProps> = (props: LoginProps): JSX.Element => {
-	const [username, setUsername] = useState<string>('');
+	const [userEmail, setUserEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
+	const [loginMessage, setLoginMessage] = useState<string>('');
 	const handleLogin = async () => {
 		try {
-			const user = await getUserAfterVerification(username, password);
-			console.log(user);
+			const user: boolean | UserDetailsObject = await verifyUserLogin(userEmail, password);
+			if (user === false) {
+				props.setIsUserLoggedIn(false);
+				setLoginMessage('Invalid email or password');
+			} else {
+				props.setIsUserLoggedIn(true);
+				setLoginMessage('Successful Login');
+				props.setUserData(user as UserDetailsObject);
+			}
 		} catch (error: unknown) {
 			console.log('Error in login');
+			props.setIsUserLoggedIn(false);
+			setLoginMessage('Invalid email or password');
 		}
 	};
 
 	return (
-		<div>
+		<Container>
 			<input
 				type='text'
-				placeholder='Enter Username'
-				value={username}
+				placeholder='Enter Email Id'
+				value={userEmail}
 				onChange={e => {
-					setUsername(e.target.value);
+					setUserEmail(e.target.value);
 				}}
 			/>
 			<input
@@ -40,7 +51,8 @@ const Login: React.FC<LoginProps> = (props: LoginProps): JSX.Element => {
 			>
         Login
 			</Button>
-		</div>
+			{loginMessage}
+		</Container>
 	);
 };
 

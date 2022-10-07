@@ -16,7 +16,8 @@
     },
     "plugins": ["react"],
     "rules": {
-        "singleAttributePerLine": 0
+        "singleAttributePerLine": 0,
+				"max-statements-per-line": 2
     },
     "ignorePatterns": ["src/reportWebVitals.ts"]
 }

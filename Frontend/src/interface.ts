@@ -1,12 +1,13 @@
 export type LoginProps = {
 	setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
+	setUserData: (userData: UserDetailsObject) => void;
 };
 
 export type HomePageProps = {
 	userData: UserDetailsObject;
 };
 
-export type UserDetailsObject = undefined | {
+export type UserDetailsObject = {
 	username: string;
 	userEmail: string;
 	password: string;
