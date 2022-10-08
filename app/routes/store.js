@@ -19,6 +19,29 @@ router.get('/stores', adminAuth, async(req, res) =>{
     }
 })
 
+// GET-method
+// Get all details of one store
+router.post("/getStoreDetails", async (req, res) =>{
+    try {
+        // var store = await Store.findOne({storeName: req.body.storeName})
+        // res.status(200).send(JSON.stringify(store))
+        var id = req.body.storeId;
+        Store.findById(id, function(err, store){
+            if(err){
+                console.log(err);
+                res.status(400).send({Message: "Invalid storeId"});
+            }else if(store == null){
+                res.status(409).send({ Message: "Store not found" });
+            }else{
+                res.status(200).send(store);
+            }
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(400).send(e);
+    }
+  })
+
 // POST-method
 // Add a store
 router.post('/addStore', adminAuth, async(req, res) =>{
@@ -69,13 +92,6 @@ router.post('/addEmployeeToStore', adminAuth, async(req, res) =>{
                 emailAlreadyExists = true;
             }
         });
-        // for(let employee in f["employeeEmails"]){
-        //     console.log(employee);
-        //     if(employee == employeeEmail){
-                
-        //         res.status(409).send({ "Message": "User Already Exists" })
-        //     }
-        // }
         if(!emailAlreadyExists){
             f.employeeEmails.push(employeeEmail);
             await f.save();
