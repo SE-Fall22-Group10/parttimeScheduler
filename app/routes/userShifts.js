@@ -113,17 +113,30 @@ router.post("/applyBid", async (req, res) => {
   try {
     console.log(req.body);
     const shiftId = req.body.shiftId;
-    const takerid = req.body.takerid;
+    const takeremail = req.body.takeremail;
     var f = await User.findOne({ email: req.body.email });
+    var sch = 0;
     for(let shift of f["shifts"]){
       // console.log(shift["_id"] == shiftId);
       if(shift["_id"] == shiftId){
-          shift["bidderList"].push(takerid);
+          sch = {
+           shiftFrom: shift["shiftFrom"],
+           shiftTill: shift["shiftTill"],
+           storeName: shift["storeName"],  
+          };
+          f["shifts"].pop(shift);
           break;               
       }
   }
+  var g = await User.findOne({ email: takeremail});
+  console.log(f);
+  console.log(g);
+  g.shifts.push(sch);
     //send index instead of obj id
     await f.save();
+    await g.save();
+    console.log(f);
+    console.log(g);
     res.status(200).send(f);
   } catch (e) {
     if (e.code === 11000) {

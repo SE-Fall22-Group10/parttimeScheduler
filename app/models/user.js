@@ -25,7 +25,7 @@ const UserSchema = new Schema({
     required: true,
   },
   shifts : [
-    {
+    { 
       shiftFrom: {
         type: Date,
         required: true
