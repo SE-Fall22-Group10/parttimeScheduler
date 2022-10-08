@@ -51,7 +51,7 @@ router.post('/addStore', adminAuth, async(req, res) =>{
             supervisorEmail
         } = req.body
         if(!storeName || !supervisorEmail){
-            return res.status(400).send("Store Name or supervisor email cannot be empty!")
+            return res.status(400).send({ Message: "Store Name or supervisor email cannot be empty!"})
         }
 
         // Creating Store object.
@@ -62,10 +62,10 @@ router.post('/addStore', adminAuth, async(req, res) =>{
         
         //Saving Store object to the db.
         await store.save()
-        res.status(201).send({ "Message": "Store Added" })
+        res.status(201).send({ Message: "Store Added" })
     } catch(e) {
         if(e.code === 11000){
-            res.status(409).send({ "Message": "Store Already Exists" })
+            res.status(409).send({ Message: "Store Already Exists" })
         }else{
             console.log(e)
             res.status(400).send(e)
@@ -81,7 +81,7 @@ router.post('/addEmployeeToStore', adminAuth, async(req, res) =>{
             employeeEmail
         } = req.body
         if(!employeeEmail){
-            return res.status(400).send("Employee email cannot be empty!")
+            return res.status(400).send({ Message: "Employee email cannot be empty!"})
         }
         var f = await Store.findOne({ storeName: req.body.storeName });
         console.log(f);
@@ -97,11 +97,11 @@ router.post('/addEmployeeToStore', adminAuth, async(req, res) =>{
             await f.save();
             res.status(200).send(f);
         }else{            
-            res.status(409).send({ "Message": "User Already Exists" });
+            res.status(409).send({ Message: "User Already Exists" });
         }
     } catch(e) {
         if(e.code === 11000){
-            res.status(409).send({ "Message": "User Already Exists" })
+            res.status(409).send({ Message: "User Already Exists" })
         }else{
             console.log(e)
             res.status(400).send(e)

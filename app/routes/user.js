@@ -20,7 +20,7 @@ router.get("/users", adminAuth, async (req, res) => {
 });
 
 // GET-method
-// Get all details one user
+// Get all details of one user
 router.post("/getUserDetails", async (req, res) =>{
   try {
       var f =await User.findOne({email: req.body.email});
@@ -37,7 +37,7 @@ router.post("/signup", async (req, res) => {
   try {
     const { email, password, role } = req.body;
     if (!email || !password || !role) {
-      return res.status(400).send("All fields have not been filled!");
+      return res.status(400).send({Message: "All fields have not been filled!"});
     }
 
     // Encrypting Password and storing it.

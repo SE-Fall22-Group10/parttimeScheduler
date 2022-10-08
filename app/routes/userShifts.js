@@ -24,7 +24,7 @@ router.post("/addShift", async (req, res) => {
     // console.log(sch);
 
     if (!shiftFrom || !shiftTill) {
-      return res.status(400).send("Time not in required format!");
+      return res.status(400).send({ Message: "Time not in required format!"});
     }
     // Send response in here
     var f = await User.findOne({ email: req.body.email });
@@ -56,7 +56,7 @@ router.post("/updateShift", async (req, res) => {
         };
         
         if (!shiftFrom || !shiftTill) {
-            return res.status(400).send("Time not in required format!");
+            return res.status(400).send({Message: "Time not in required format!"});
         }
         var f = await User.findOne({email: req.body.email});
         for(let shift of f["shifts"]){
@@ -157,7 +157,7 @@ router.post("/tradeShift", async (req, res) => {
     var ff = f.shifts;
     var gg = g.shifts;
     if (ff[req.body.indexOfShift1].storeName != gg[req.body.indexOfShift2].storeName) {
-      return res.status(400).send("Shift exchange not authorized!");
+      return res.status(400).send({Message: "Shift exchange not authorized!"});
     }
 
     [ff[req.body.indexOfShift1].shiftFrom, gg[req.body.indexOfShift2].shiftFrom] = [gg[req.body.indexOfShift2].shiftFrom,ff[req.body.indexOfShift1].shiftFrom];
@@ -168,7 +168,7 @@ router.post("/tradeShift", async (req, res) => {
     //send index instead of obj id
     await f.save();
     await g.save();
-    res.status(200).send("done");
+    res.status(200).send({Message: "Done"});
   } catch (e) {
     if (e.code === 11000) {
       res.status(409).send({ Message: "Shift not found" });
