@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const Store = require("../models/store")
+const Req = require("../models/requests")
 var authenticateToken = require("../middleware/authenticateToken");
 var adminAuth = require("../middleware/adminAuth");
 const auth = require("../middleware/authentication");
@@ -14,8 +15,8 @@ const { ObjectId } = require("mongodb");
 router.post("/addShift", async (req, res) => {
   try {
     console.log(req.body);
-    const shiftFrom = Date.parse(req.body.shiftFrom);
-    const shiftTill = Date.parse(req.body.shiftTill);
+    const shiftFrom = new Date(req.body.shiftFrom);
+    const shiftTill = new Date(req.body.shiftTill);
     const storeName = req.body.storeName;
     const sch = {
       shiftFrom: shiftFrom,
@@ -30,6 +31,12 @@ router.post("/addShift", async (req, res) => {
     // Send response in here
     var f = await User.findOne({ email: req.body.email });
     f.shifts.push(sch);
+    f.shiftHours += shiftTill.getHours()-shiftFrom.getHours();
+    if (f.shiftHours>20) {
+      return res.status(400).send({ Message: "Shift Hours exceeded! Cannot Add Shift"});
+    }
+    var week = shiftFrom.getDate()
+    f.weekNumber = ~~(week/7);
     await f.save();
     res.status(200).send(f);
   } catch (e) {
@@ -46,8 +53,8 @@ router.post("/addShift", async (req, res) => {
 // update shift details for a user
 router.post("/updateShift", async (req, res) => {
     try{
-        const shiftFrom = Date.parse(req.body.shiftFrom);
-        const shiftTill = Date.parse(req.body.shiftTill);
+        const shiftFrom = new Date(req.body.shiftFrom);
+        const shiftTill = new Date(req.body.shiftTill);
         const storeName = req.body.storeName;
         const shiftId = req.body.shiftId;
         const sch = { 
@@ -66,6 +73,12 @@ router.post("/updateShift", async (req, res) => {
                 shift["shiftFrom"] = shiftFrom;
                 shift["shiftTill"] = shiftTill;
                 shift["storeName"] = storeName;
+                f.shiftHours = shiftTill.getHours()-shiftFrom.getHours();
+                if (f.shiftHours>20) {
+                  return res.status(400).send({ Message: "Shift Hours exceeded! Cannot Add Shift"});
+                }
+                var week = shiftFrom.getDate()
+                f.weekNumber = ~~(week/7)+1;
                 break;               
             }
         }
@@ -95,6 +108,13 @@ router.post("/offerShift", async (req, res) => {
           break;               
       }
   }
+  var reqs = new Req({
+    offerer: req.body.email,
+    grabbed: 0
+  });
+
+  //Saving Req object to the db.
+  await reqs.save();
     //send index instead of obj id
     await f.save();
     res.status(200).send(f);
@@ -133,6 +153,11 @@ router.post("/applyBid", async (req, res) => {
   console.log(f);
   console.log(g);
   g.shifts.push(sch);
+  var reqs = await Req.findOne({email: req.body.email});
+  reqs['grabbed'] = 1;
+  reqs['taker'] = takeremail;
+  //Saving Req object to the db.
+  await reqs.save();
     //send index instead of obj id
     await f.save();
     await g.save();

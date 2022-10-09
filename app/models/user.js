@@ -23,6 +23,11 @@ const UserSchema = new Schema({
     type: String,
     enum: ["Employee", "Supervisor"],
     required: true,
+  },      
+  shiftHours:{
+    type: Number,
+    required: false,
+    default: 0,
   },
   shifts : [
     { 
@@ -44,11 +49,11 @@ const UserSchema = new Schema({
         default: 0,
         enum: [0,1]
       },
-      bidderList: {
-        type: [String],
+      weekNumber:{
+        type: Number,
         required: false,
-        default: []
-      }
+        default: 1,
+      }  
     }
   ]
 });
