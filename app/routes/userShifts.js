@@ -105,16 +105,17 @@ router.post("/offerShift", async (req, res) => {
       // console.log(shift["_id"] == shiftId);
       if(shift["_id"] == shiftId){
           shift["shiftToggle"] = 1;
+          var reqs = new Req({
+            offerer: req.body.email,
+            grabbed: 0          });
+          await reqs.save();
+          console.log(reqs)
           break;               
       }
   }
-  var reqs = new Req({
-    offerer: req.body.email,
-    grabbed: 0
-  });
+  
 
   //Saving Req object to the db.
-  await reqs.save();
     //send index instead of obj id
     await f.save();
     res.status(200).send(f);
@@ -153,7 +154,7 @@ router.post("/applyBid", async (req, res) => {
   console.log(f);
   console.log(g);
   g.shifts.push(sch);
-  var reqs = await Req.findOne({email: req.body.email});
+  var reqs = await Req.findOne({shiftid: shiftId});
   reqs['grabbed'] = 1;
   reqs['taker'] = takeremail;
   //Saving Req object to the db.
