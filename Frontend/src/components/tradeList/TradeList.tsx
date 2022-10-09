@@ -26,7 +26,7 @@ const TradeList = (props: TradeListProps): JSX.Element => {
 							<td>{shift.shiftFrom.toLocaleDateString()}</td>
 							<td>
 								{getTimeInHoursMinutesFromDate(shift.shiftFrom)}-
-								{getTimeInHoursMinutesFromDate(shift.shiftEnd)}
+								{getTimeInHoursMinutesFromDate(shift.shiftTill)}
 							</td>
 							<td>{shift.storeName}</td>
 							<td>
