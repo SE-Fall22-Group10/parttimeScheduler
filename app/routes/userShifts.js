@@ -225,7 +225,9 @@ router.post('/removeEmployeeFromStore', adminAuth, async(req, res) =>{
         await user.save();
         var store = await Store.findOne({ storeName: storeName});
         if(store != null){
-          for(let employee of store.employees){
+          for(let employee of store["employees"]){
+            console.log(employee.employeeEmail, employeeEmail);
+            if(employee["employeeEmail"]===employeeEmail)
             employee.stillWorksForStore = false;
           }
           await store.save();
