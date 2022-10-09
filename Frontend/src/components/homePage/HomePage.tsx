@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import {Container, Table} from 'react-bootstrap';
-import type {HomePageProps} from '../../interface';
+import type {HomePageProps, NotificationObject, ShiftObject} from '../../interface';
 
 const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element => {
 	const [username, setUsername] = useState<string>('');
-
 	return (
 		<>
 			<Container className='tableUpcomingShifts' style={{width: '30%', minHeight: '30vh', maxHeight: '40vh', margin: '4%', display: 'block', overflowY: 'scroll', float: 'right'}}>
@@ -15,9 +14,13 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Shift has not been picked up</td>
-						</tr>
+						{props.userData.shifts.map((shift: ShiftObject, idx: number) => (
+							<tr key={idx}>
+								<td>
+									{shift.shiftStart} - {shift.shiftEnd}
+								</td>
+							</tr>
+						))}
 					</tbody>
 				</Table>
 			</Container>
@@ -30,9 +33,13 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Shift has not been picked up</td>
-						</tr>
+						{
+							props.userNotifications.map((notif: NotificationObject) => (
+								<tr key={notif.notificationId}>
+									<td>{notif.message}</td>
+								</tr>
+							))
+						}
 					</tbody>
 				</Table>
 			</Container>

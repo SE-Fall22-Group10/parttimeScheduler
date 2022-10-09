@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Container} from 'react-bootstrap';
 import type {LoginProps, MenuProps, UserDetailsObject} from '../../interface';
-import {verifyUserLogin} from '../../utils';
 import MainPage from '../mainPage/MainPage';
 // Import loginCss from './Login.module.css';
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';

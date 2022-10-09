@@ -11,7 +11,7 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps): JSX.Element =>
 		let resultComponent = null;
 		switch (pgName) {
 			case pageNames.home:
-				resultComponent = <HomePage setActivePage={setActivePage} userData={props.userData} />;
+				resultComponent = <HomePage userData={props.userData} userNotifications={props.userNotifications} setActivePage={setActivePage} />;
 				break;
 			case pageNames.mySchedule:
 				resultComponent = <div>My Schedule</div>;

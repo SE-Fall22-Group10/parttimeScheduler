@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Container, Row} from 'react-bootstrap';
+import {getNotifications, getUser} from '../../apiCalls';
 import type {LoginProps, UserDetailsObject} from '../../interface';
-import {verifyUserLogin} from '../../utils';
 // Import loginCss from './Login.module.css';
 
 const Login: React.FC<LoginProps> = (props: LoginProps): JSX.Element => {
@@ -9,19 +9,24 @@ const Login: React.FC<LoginProps> = (props: LoginProps): JSX.Element => {
 	const [password, setPassword] = useState<string>('');
 	const [loginMessage, setLoginMessage] = useState<string>('');
 	const handleLogin = async () => {
-		console.log('button clicked');
 		try {
-			const user: boolean | UserDetailsObject = await verifyUserLogin(userEmail, password);
-			console.log(user);
+			const user: boolean | UserDetailsObject = await getUser(userEmail, password);
 			if (user === false) {
 				props.setIsUserLoggedIn(false);
 				setLoginMessage('Invalid email or password');
 			} else {
-				console.log('here');
+				const finalUser = user as UserDetailsObject;
+				// Get notifications for users
+				const userNotifications = await getNotifications(userEmail);
+				props.setUserNotifications(userNotifications);
+
+				// Get pending requests for user
+
+				// set state variables based on successful login
 				props.setIsUserLoggedIn(true);
 				console.log('login successful');
 				setLoginMessage('Successful Login');
-				props.setUserData(user as UserDetailsObject);
+				props.setUserData(finalUser);
 			}
 		} catch (error: unknown) {
 			console.log('Error in login');
