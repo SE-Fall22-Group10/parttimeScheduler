@@ -4,7 +4,7 @@
 			"username": "Bosco",
 			"userEmail": "bosco@gmail.com",
 			"password": "bosco",
-			"userRole": "StudentEmployee",
+			"userRole": "Student Employee",
 			"shifts": [
 				{
 				"shiftID": 1,
@@ -24,7 +24,7 @@
 			"username": "Prasad",
 			"userEmail": "prasad@gmail.com",
 			"password": "prasad",
-			"userRole": "StudentEmployee",
+			"userRole": "Supervisor",
 			"shifts": [
 				{
 				"shiftID": 3,

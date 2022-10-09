@@ -22,6 +22,9 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps): JSX.Element =>
 			case pageNames.tradePlace:
 				resultComponent = <div>Trade Place</div>;
 				break;
+			case pageNames.manage:
+				resultComponent = <div>Manage</div>;
+				break;
 			default:
 				resultComponent = <div>Oops this page does not exist</div>;
 		}
