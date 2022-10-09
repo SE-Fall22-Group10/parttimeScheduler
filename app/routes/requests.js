@@ -12,7 +12,7 @@ const jwt = require("jsonwebtoken");
 
 //GET-method
 //Get all stores
-router.get("/allnotifs", adminAuth, async (req, res) => {
+router.get("/allNotifs", adminAuth, async (req, res) => {
   try {
     var notifs = await Notif.find();
     res.status(200).send(JSON.stringify(notifs));
@@ -24,7 +24,7 @@ router.get("/allnotifs", adminAuth, async (req, res) => {
 
 // GET-method
 // Get all requests
-router.get("/allnotifs", adminAuth, async (req, res) => {
+router.get("/allRequests", adminAuth, async (req, res) => {
   try {
     var reqs = await Reqs.find();
     res.status(200).send(JSON.stringify(reqs));

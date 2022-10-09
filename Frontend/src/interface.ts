@@ -27,25 +27,25 @@ export type UserDetailsObject = {
 	email: string;
 	password: string;
 	role: string;
-	shifts: ShiftObject[];
+	shifts: ShiftsPerWeek[];
+};
+
+export type ShiftsPerWeek = {
+	weekNumber: number;
+	shiftArray: ShiftObject[];
 };
 
 export type ShiftObject = {
-	shiftId: number;
 	shiftFrom: Date;
-	shiftEnd: Date;
+	shiftTill: Date;
 	storeName: string;
-	shiftToggle: number;
-	weekNumber: number;
+	shiftHours: number;
+	shiftForGrabsStatus: string;
 };
 
 export type NotificationObject = {
-
-	notificationId: number;
-	receiver: string;
-	notificationDate: string;
+	storeName: string;
 	message: string;
-
 };
 
 export type TradeListObject = {

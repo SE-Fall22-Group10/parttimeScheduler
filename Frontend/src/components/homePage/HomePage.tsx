@@ -1,10 +1,37 @@
 import React, {useState} from 'react';
 import {Container, Table} from 'react-bootstrap';
 import type {HomePageProps, NotificationObject, ShiftObject} from '../../interface';
-import {getTimeInHoursMinutesFromDate} from '../../utils';
+import {getTimeInHoursMinutesFromDate, getWeekNumber} from '../../utils';
 
 const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element => {
 	const [username, setUsername] = useState<string>('');
+
+	const getUpcomingShifts = (): ShiftObject[] => {
+		const currentDate = new Date();
+		const currentWeekNumber = getWeekNumber(currentDate);
+		const recentShifts = props.userData.shifts.filter(shift => shift.weekNumber >= currentWeekNumber && shift.weekNumber <= currentWeekNumber + 1);
+		if (recentShifts) {
+			const allShifts = recentShifts.map(shiftPerWk => shiftPerWk.shiftArray).flat();
+			const sortedShifts = allShifts.sort((a, b) => a.shiftFrom.getTime() - b.shiftFrom.getTime());
+			return sortedShifts;
+		}
+
+		return [];
+	};
+
+	const getScheduledHoursForWeek = (): number => {
+		const currentDate = new Date();
+		const currentWeekNumber = getWeekNumber(currentDate);
+		const weekShifts = props.userData.shifts.filter(shift => shift.weekNumber === currentWeekNumber);
+		if (weekShifts) {
+			const allShifts = weekShifts.map(shiftPerWk => shiftPerWk.shiftArray).flat();
+			const hrs = allShifts.map(shift => shift.shiftHours);
+			return hrs.reduce<number>((acc, curr) => acc + curr, 0);
+		}
+
+		return 0;
+	};
+
 	return (
 		<>
 			<Container className='tableUpcomingShifts' style={{width: '30%', minHeight: '30vh', maxHeight: '40vh', margin: '4%', display: 'block', overflowY: 'scroll', float: 'right'}}>
@@ -15,11 +42,10 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 						</tr>
 					</thead>
 					<tbody>
-						{props.userData.shifts.map((shift: ShiftObject, idx: number) => (
+						{getUpcomingShifts().map((shift: ShiftObject, idx: number) => (
 							<tr key={idx}>
 								<td>
-									{/* {shift.shiftFrom.getDay()}, {getTimeInHoursMinutesFromDate(shift.shiftFrom)} to {getTimeInHoursMinutesFromDate(shift.shiftEnd)} */}
-									example1
+									{shift.shiftFrom.getDay()}, {getTimeInHoursMinutesFromDate(shift.shiftFrom)} to {getTimeInHoursMinutesFromDate(shift.shiftTill)}
 								</td>
 							</tr>
 						))}
@@ -46,7 +72,7 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 				</Table>
 			</Container>
 
-			<Container className='tableHoursScheduled' style={{width: '30%', minHeight: '30vh', maxHeight: '40vh', margin: '4%', display: 'block', overflowY: 'scroll', float: 'right'}}>
+			<Container className='tableHoursScheduled' style={{width: '30%', minHeight: '30vh', maxHeight: '40vh', margin: '4%', display: 'block', float: 'right'}}>
 				<Table striped bordered hover>
 					<thead>
 						<tr>
@@ -55,7 +81,7 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 					</thead>
 					<tbody>
 						<tr>
-							<td>Shift has not been picked up</td>
+							<td>{getScheduledHoursForWeek()}</td>
 						</tr>
 					</tbody>
 				</Table>
