@@ -68,7 +68,7 @@ router.post("/signup", async (req, res) => {
 //Employee login
 router.post("/login", auth, async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { email, password } = req.body;
     var loggeduser = await User.findOne({ email: email });
     res.status(200).send(loggeduser);
   } catch (e) {
