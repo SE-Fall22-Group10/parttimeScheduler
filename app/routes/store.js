@@ -86,14 +86,15 @@ router.post('/addEmployeeToStore', adminAuth, async(req, res) =>{
         var f = await Store.findOne({ storeName: req.body.storeName });
         console.log(f);
         var emailAlreadyExists = false;
-        f.employeeEmails.forEach((email)=>{
+        f.employees.forEach((employee)=>{
+            var email = employee.employeeEmail;
             console.log(email);
             if(email == employeeEmail){                
                 emailAlreadyExists = true;
             }
         });
         if(!emailAlreadyExists){
-            f.employeeEmails.push(employeeEmail);
+            f.employees.push({employeeEmail: employeeEmail, stillWorksForStore: true});
             await f.save();
             res.status(200).send(f);
         }else{            
