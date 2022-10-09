@@ -17,18 +17,49 @@
 
 ## Goal
 
-> Implementing a part time work scheduler for university students to efficiently amanage both their studies and work.
+> Implementing a part time work scheduler for university students to efficiently manage their work at the campus employer. 
 ---
-
+## Motivation
+> There are a lot of students that manage multiple on campus jobs at the same time. Creating a unified interface that helps manage all of them would prove to be a life saver for them. Currently the employer chooses their own platform and the student has to manage all those different applications at once.
+---
 ## Features
 ### Users
 
--Students<br>
--Supervisors
+- Students
+    >These are university students who work in shifts at employers on the campus in their free time to supplementt the payment towards their tuition.
+
+    Their responsibilities include-
+    - They have a relatively fixed schedule alloted to them by their supervisorsaccording to their own personal schedule.
+    - They are supposed to be present at their shift timings. Some infractions are allowed before they are fired for causing understaffing at the store.
+    - They need to let their supervisor and other peers know if they will be unable to take up their alloted shift.
+    - Some others can volunterily take up such shifts to earn more in their free time.
+    - 
+    <br>
+- Supervisors
+    >These are the permanent employees at the campus employer who manage the students working there.
+
+    Their resposibilities include - 
+    - Hiring and onborading new student employees and giving them access to their shift management system. 
+    - They also have to fix a schedule for each student keeping in mind the staff strength required at the store.
+    - They need to verifythe attendance records for all the students attending their shifts.
+    -  <br>
 
 ### Components
+The components for the system are-
+- Frontend- It is made using Node.js , Typescript and React-Bootstrap.
+
+- Backend- This uses Express.js and MongoDb to maintain the data for implementing this project.
 
 ### Functionality
+The things the project intends to deliver-<br>
+>For Students -<br>
+- Give an interactive Homepage to view numerous things like-
+    - Their upcoming shifts
+    - Statistics related to shifts in the current week like hours completed, scheduled etc.
+    - To have a quick look at the status of requests made for shift change or drop<br>
+    - Links to all pages from the navigation bar.
+- To schow the students schedule in detail
+- 
 
 
 ---
@@ -37,15 +68,53 @@
 
 ### Installation
 
-- Install Node from [here]
-- Create working directory named
-- Clone this repository from [here]() or use
-- Install all the requirements using
+- Install Node.js from [here](https://nodejs.org/en/download/) and finish the required setup in the executable file.
+- Install a global React-app for the project using-
+    ```bash
+    $ npm install -g create-react-app
+    ```
+- Install Express.js for backend using-
+    ```bash
+    $ npm install express --save
+    ```
+- Install MongoDb(mongoose)using-
+    ```bash
+    $ npm install mongoose --save
+    ```
+- Install dotenv  using-
+    ```bash
+    $ npm install dotenv --save
+    ```
+- Install cors express middleware for backend using-
+    ```bash
+    $ npm install cors --save
+    ```
+- Create working directory named <em>PartTimeScheduler</em> and go inside it
+    ```bash
+    $ mkdir PartTimeScheduler
+    $ cd PartTimeScheduler
+    ```
+- Clone this repository from [here](https://github.com/boscosylvester-john/parttimeScheduler) or use the following in GitBash
+    ```bash
+    $ git clone https://github.com/boscosylvester-john/parttimeScheduler
+    ```
+- Install all the requirements lsted in <em> package.json</em> using
+    ```bash
+    $ npm install
+    ```
+- Run the app using 
+    ```bash
+    $ npm start
+    ```
 
 ### Running Tests
 
-- Test all the test files using
-
+- Test all the test files in the project directory using
+    ```bash
+    $ node server.js
+    $ npm test
+    ```
+    
 - Generate the coverage reports
 
 
