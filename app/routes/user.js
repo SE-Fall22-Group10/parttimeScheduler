@@ -35,8 +35,8 @@ router.post("/getUserDetails", async (req, res) =>{
 //Creating Employee logins - for supervisors
 router.post("/signup", async (req, res) => {
   try {
-    const { email, password, role } = req.body;
-    if (!email || !password || !role) {
+    const { email, password, role, name } = req.body;
+    if (!email || !password || !role || !name) {
       return res.status(400).send({Message: "All fields have not been filled!"});
     }
 
@@ -49,6 +49,7 @@ router.post("/signup", async (req, res) => {
       email,
       password: hashedPassword,
       role,
+      name,
     });
 
     //Saving User object to the db.
