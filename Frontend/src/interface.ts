@@ -45,3 +45,21 @@ export type NotificationObject = {
 	message: string;
 
 };
+
+// Export type ShiftsList = {
+//     listobject:Shiftsobject[];
+// };
+// export type Shiftsobject= {
+//     ShiftId: number;
+//     shiftstart : Date;
+//     shiftend : Date;
+//     storename: string;
+// };
+
+// export type ListvalueProps ={
+//     listobject: Shiftsobject[] ;
+//     type : string;
+// };
+// export type Tradebookprops={
+//     setlistValueProps : (listobject123:ListvalueProps) => void;
+// };
