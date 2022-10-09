@@ -40,5 +40,25 @@
 				}
 			]
 		}
+	],
+	"notifications": [
+		{
+			"notificationId": 1,
+			"receiver": "bosco@gmail.com",
+			"notificationDate": "11/7/22",
+			"message": "notification 1"
+		},
+		{
+			"notificationId": 2,
+			"receiver": "bosco@gmail.com",
+			"notificationDate": "11/7/22",
+			"message": "notification 2"
+		},
+		{
+			"notificationId": 3,
+			"receiver": "bosco@gmail.com",
+			"notificationDate": "11/7/22",
+			"message": "notification 3"
+		}
 	]
 }

@@ -1,15 +1,18 @@
 export type LoginProps = {
 	setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
 	setUserData: (userData: UserDetailsObject) => void;
+	setUserNotifications: (userNotifications: NotificationObject[]) => void;
 };
 
 export type MainPageProps = {
 	userData: UserDetailsObject;
+	userNotifications: NotificationObject[];
 	setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
 };
 
 export type HomePageProps = {
 	userData: UserDetailsObject;
+	userNotifications: NotificationObject[];
 	setActivePage: (pageName: string) => void;
 };
 
@@ -24,12 +27,21 @@ export type UserDetailsObject = {
 	userEmail: string;
 	password: string;
 	userRole: string;
-	shifts: Shift[];
+	shifts: ShiftObject[];
 };
 
-export type Shift = {
+export type ShiftObject = {
 	shiftID: number;
 	shiftStart: string;
 	shiftEnd: string;
 	storeName: string;
+};
+
+export type NotificationObject = {
+
+	notificationId: number;
+	receiver: string;
+	notificationDate: string;
+	message: string;
+
 };
