@@ -25,11 +25,13 @@ app.get('/', auth, (req, res) => {
 var userRouter = require('./app/routes/user')
 var userShiftRouter = require('./app/routes/userShifts')
 var storeRouter = require('./app/routes/store')
+var requestsRouter = require('./app/routes/requests')
 
 // Setting up Routers
 app.use(userRouter)
 app.use(userShiftRouter)
 app.use(storeRouter)
+app.use(requestsRouter)
 
 // Error Page
 app.get('*', (req, res) => {
