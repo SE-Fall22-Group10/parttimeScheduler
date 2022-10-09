@@ -151,3 +151,37 @@ describe("Offer Shifts", () => {
     });
   });
   
+  
+  describe("Removing Shifts", () => {
+    const data = {
+      email: "abcd@ncsu.edu",
+      shiftId: "6340dd533d18ebd731966a8d",
+
+    };
+    beforeAll(async () => {
+      // set up the todo
+      await request(baseURL).post("/removeShift").send(data);
+    });
+    it("Should return status 200", async () => {
+      const response = await request(baseURL).get("/removeShift");
+      expect(response.statusCode).toBe(200);
+    });
+  });
+  
+  describe("Removing Employee from store", () => {
+    const data = {
+      employeeEmail: "abcd@ncsu.edu",
+      storeName: "Outfitters",
+
+    };
+    beforeAll(async () => {
+      // set up the todo
+      await request(baseURL).post("/removeEmployeeFromStore").send(data);
+    });
+    it("Should return status 200", async () => {
+      const response = await request(baseURL).get("/removeEmployeeFromStore");
+      expect(response.statusCode).toBe(200);
+    });
+  });
+  
+  

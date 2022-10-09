@@ -28,38 +28,41 @@ const UserSchema = new Schema({
     enum: ["Employee", "Supervisor"],
     required: true,
   },      
-  shiftHours:{
+  totalShiftHours:{
     type: Number,
     required: false,
     default: 0,
   },
-  shifts : [
-    { 
+  shifts :[{
+    weekNumber:{ type: Number,
+      required: false,
+      default: 0},
+    shiftArray:[{
       shiftFrom: {
         type: Date,
-        required: true
+        required: false
       },
       shiftTill: {
         type: Date,
-        required: true
+        required: false
       },
       storeName: {
         type: String,
-        required: true
+        required: false
       },
-      shiftToggle: {
+      shiftHours: {
         type: Number,
-        required: false,
-        default: 0,
-        enum: [0,1]
+        required: false
       },
-      weekNumber:{
-        type: Number,
-        required: false,
-        default: 1,
-      }  
-    }
-  ]
+      shiftForGrabsStatus: {
+        type: String,
+        required: true,
+        default: "Not for grabs",
+        enum: ["Not for grabs", "Up for grabs", "Shift taken"]
+      }}
+    ]
+    }   ]   
+    
 });
 
 module.exports = mongoose.model("user", UserSchema);
