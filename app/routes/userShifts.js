@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const Store = require("../models/store")
 var authenticateToken = require("../middleware/authenticateToken");
 var adminAuth = require("../middleware/adminAuth");
 const auth = require("../middleware/authentication");
@@ -205,5 +206,44 @@ router.delete("/removeShift", async (req, res) => {
     }
   }
 });
+
+// POST-method
+// Remove an employee from the store
+router.post('/removeEmployeeFromStore', adminAuth, async(req, res) =>{
+  try{
+      const {
+          employeeEmail,
+          storeName
+      } = req.body
+      var user = await User.findOne({ email: employeeEmail });
+      if(user != null){
+        for(let shift of user["shifts"]){
+            if(shift["storeName"] == storeName){                
+                shift["shiftToggle"] = 1;
+            }
+        };
+        await user.save();
+        var store = await Store.findOne({ storeName: storeName});
+        if(store != null){
+          for(let employee of store.employees){
+            employee.stillWorksForStore = false;
+          }
+          await store.save();
+          res.status(200).send({ Message: "User removed" });
+        }else{
+          res.status(409).send({ Message: "Store not found" });
+        }
+      }else{        
+        res.status(409).send({ Message: "User does not work for the store" });
+      }
+  } catch(e) {
+      if(e.code === 11000){
+          res.status(409).send({ Message: "Shift not found" })
+      }else{
+          console.log(e)
+          res.status(400).send(e)
+      }
+  }
+})
 
 module.exports = router;
