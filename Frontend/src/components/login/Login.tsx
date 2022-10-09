@@ -17,11 +17,16 @@ const Login: React.FC<LoginProps> = (props: LoginProps): JSX.Element => {
 				props.setIsUserLoggedIn(false);
 				setLoginMessage('Invalid email or password');
 			} else {
-				console.log('here');
+				const finalUser = user as UserDetailsObject;
+				// Get notifications for users
+
+				// get pending requests for user
+
+				// set state variables based on successful login
 				props.setIsUserLoggedIn(true);
 				console.log('login successful');
 				setLoginMessage('Successful Login');
-				props.setUserData(user as UserDetailsObject);
+				props.setUserData(finalUser);
 			}
 		} catch (error: unknown) {
 			console.log('Error in login');

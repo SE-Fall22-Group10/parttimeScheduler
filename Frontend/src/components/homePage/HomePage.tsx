@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Container, Table} from 'react-bootstrap';
-import type {HomePageProps} from '../../interface';
+import type {HomePageProps, Shift} from '../../interface';
 
 const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element => {
 	const [username, setUsername] = useState<string>('');
@@ -15,9 +15,13 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Shift has not been picked up</td>
-						</tr>
+						{props.userData.shifts.map((shift: Shift, idx: number) => (
+							<tr key={idx}>
+								<td>
+									{shift.shiftStart} - {shift.shiftEnd}
+								</td>
+							</tr>
+						))}
 					</tbody>
 				</Table>
 			</Container>
