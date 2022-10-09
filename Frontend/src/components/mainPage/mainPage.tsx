@@ -1,16 +1,40 @@
 import React, {useState} from 'react';
-import {Button} from 'react-bootstrap';
-import type {LoginProps, UserDetailsObject} from '../../interface';
+import {pageNames} from '../../constants';
+import type {MainPageProps, UserDetailsObject} from '../../interface';
 import HomePage from '../homePage/HomePage';
-import Login from '../login/Login';
+import NavigationBar from '../navigationBar/NavigationBar';
 
-const MainPage: React.FC = (): JSX.Element => {
-	const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
-	const [userData, setUserData] = useState<UserDetailsObject>();
+const MainPage: React.FC<MainPageProps> = (props: MainPageProps): JSX.Element => {
+	const [activePage, setActivePage] = useState<string>(pageNames.home);
 
-	return (<>
-		{isUserLoggedIn && userData ? <HomePage userData={userData} /> : <Login setIsUserLoggedIn={setIsUserLoggedIn} setUserData={setUserData} />}
-	</>);
+	const getActiveComponentAfterLogin = (pgName: string, userData: UserDetailsObject) => {
+		let resultComponent = null;
+		switch (pgName) {
+			case pageNames.home:
+				resultComponent = <HomePage setActivePage={setActivePage} userData={props.userData} />;
+				break;
+			case pageNames.mySchedule:
+				resultComponent = <div>My Schedule</div>;
+				break;
+			case pageNames.workPlace:
+				resultComponent = <div>Work Place</div>;
+				break;
+			case pageNames.tradePlace:
+				resultComponent = <div>Trade Place</div>;
+				break;
+			default:
+				resultComponent = <div>Oops this page does not exist</div>;
+		}
+
+		return resultComponent;
+	};
+
+	return (
+		<>
+			<NavigationBar userData={props.userData} setIsUserLoggedIn={props.setIsUserLoggedIn} setActivePage={setActivePage} />
+			{getActiveComponentAfterLogin(activePage, props.userData)}
+		</>
+	);
 };
 
 export default MainPage;

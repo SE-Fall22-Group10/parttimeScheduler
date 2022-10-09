@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Button, Container} from 'react-bootstrap';
 import type {LoginProps, UserDetailsObject} from '../../interface';
 import {verifyUserLogin} from '../../utils';
-import HomePage from '../homePage/HomePage';
 // Import loginCss from './Login.module.css';
 
 const Login: React.FC<LoginProps> = (props: LoginProps): JSX.Element => {
@@ -10,13 +9,17 @@ const Login: React.FC<LoginProps> = (props: LoginProps): JSX.Element => {
 	const [password, setPassword] = useState<string>('');
 	const [loginMessage, setLoginMessage] = useState<string>('');
 	const handleLogin = async () => {
+		console.log('button clicked');
 		try {
 			const user: boolean | UserDetailsObject = await verifyUserLogin(userEmail, password);
+			console.log(user);
 			if (user === false) {
 				props.setIsUserLoggedIn(false);
 				setLoginMessage('Invalid email or password');
 			} else {
+				console.log('here');
 				props.setIsUserLoggedIn(true);
+				console.log('login successful');
 				setLoginMessage('Successful Login');
 				props.setUserData(user as UserDetailsObject);
 			}
