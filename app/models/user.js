@@ -54,11 +54,11 @@ const UserSchema = new Schema({
         type: Number,
         required: false
       },
-      shiftToggle: {
-        type: Number,
-        required: false,
-        default: 0,
-        enum: [0,1]
+      shiftForGrabsStatus: {
+        type: String,
+        required: true,
+        default: "Not for grabs",
+        enum: ["Not for grabs", "Up for grabs", "Shift taken"]
       }}
     ]
     }   ]   

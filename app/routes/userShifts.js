@@ -124,9 +124,7 @@ router.post("/offerShift", async (req, res) => {
           break;               
       }
   }
-  
-
-  //Saving Req object to the db.
+    //Saving Req object to the db.
     //send index instead of obj id
     await f.save();
     res.status(200).send(f);
@@ -152,12 +150,7 @@ router.post("/applyBid", async (req, res) => {
     for(let shift of f["shifts"]){
       // console.log(shift["_id"] == shiftId);
       if(shift["_id"] == shiftId){
-          sch = {
-           shiftFrom: shift["shiftFrom"],
-           shiftTill: shift["shiftTill"],
-           storeName: shift["storeName"],  
-          };
-          f["shifts"].pop(shift);
+          shift["shiftForGrabsStatus"] = "Shift taken";
           break;               
       }
   }
@@ -201,8 +194,8 @@ router.post("/tradeShift", async (req, res) => {
     [ff[req.body.indexOfShift1].shiftFrom, gg[req.body.indexOfShift2].shiftFrom] = [gg[req.body.indexOfShift2].shiftFrom,ff[req.body.indexOfShift1].shiftFrom];
     
     [ff[req.body.indexOfShift1].shiftTill, gg[req.body.indexOfShift2].shiftTill] = [gg[req.body.indexOfShift2].shiftTill,ff[req.body.indexOfShift1].shiftTill];
-    ff[req.body.indexOfShift1].shiftToggle = 0;
-    gg[req.body.indexOfShift2].shiftToggle = 0;
+    ff[req.body.indexOfShift1].shiftForGrabsStatus = "Not for grabs";
+    gg[req.body.indexOfShift2].shiftForGrabsStatus = "Not for grabs";
     //send index instead of obj id
     await f.save();
     await g.save();
