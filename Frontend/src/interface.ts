@@ -23,18 +23,20 @@ export type MenuProps = {
 };
 
 export type UserDetailsObject = {
-	username: string;
-	userEmail: string;
+	name: string;
+	email: string;
 	password: string;
-	userRole: string;
+	role: string;
 	shifts: ShiftObject[];
 };
 
 export type ShiftObject = {
-	shiftID: number;
-	shiftStart: string;
-	shiftEnd: string;
+	shiftId: number;
+	shiftFrom: Date;
+	shiftEnd: Date;
 	storeName: string;
+	shiftToggle: number;
+	weekNumber: number;
 };
 
 export type NotificationObject = {
@@ -46,20 +48,16 @@ export type NotificationObject = {
 
 };
 
-// Export type ShiftsList = {
-//     listobject:Shiftsobject[];
-// };
-// export type Shiftsobject= {
-//     ShiftId: number;
-//     shiftstart : Date;
-//     shiftend : Date;
-//     storename: string;
-// };
+export type TradeListObject = {
+	shifts: ShiftObject[] ;
+	tradeType: string;
+};
 
-// export type ListvalueProps ={
-//     listobject: Shiftsobject[] ;
-//     type : string;
-// };
-// export type Tradebookprops={
-//     setlistValueProps : (listobject123:ListvalueProps) => void;
-// };
+export type TradeListProps = {
+	shiftsForTrade: TradeListObject;
+};
+
+export type TradePlaceProps = {
+	myShifts: ShiftObject[];
+	shiftsForGrabs: ShiftObject[];
+};

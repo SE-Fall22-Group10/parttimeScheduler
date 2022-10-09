@@ -10,3 +10,8 @@ export const userRoles = {
 	studentEmployee: 'Student Employee',
 	supervisor: 'Supervisor',
 };
+
+export const tradeShiftTypes = {
+	offerUp: 'Offer Up',
+	takeUp: 'Take Up',
+};

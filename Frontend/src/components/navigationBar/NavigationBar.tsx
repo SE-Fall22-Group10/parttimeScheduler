@@ -27,12 +27,12 @@ const NavigationBar: React.FC<MenuProps> = (props: MenuProps): JSX.Element => {
 						<Nav.Link onClick={() => {
 							props.setActivePage(pageNames.tradePlace);
 						}}>{pageNames.tradePlace}</Nav.Link>
-						{props.userData.userRole === userRoles.supervisor ? <Nav.Link onClick={() => {
+						{props.userData.role === userRoles.supervisor ? <Nav.Link onClick={() => {
 							props.setActivePage(pageNames.manage);
 						}}>{pageNames.manage}</Nav.Link> : null}
 						<NavDropdown title='Profile' id='basic-nav-dropdown'>
-							<NavDropdown.Item>{props.userData.username}</NavDropdown.Item>
-							<NavDropdown.Item>{props.userData.userRole}</NavDropdown.Item>
+							<NavDropdown.Item>{props.userData.name}</NavDropdown.Item>
+							<NavDropdown.Item>{props.userData.role}</NavDropdown.Item>
 							<NavDropdown.Divider />
 							<NavDropdown.Item onClick={() => {
 								props.setIsUserLoggedIn(false);

@@ -3,6 +3,7 @@ import {pageNames} from '../../constants';
 import type {MainPageProps, UserDetailsObject} from '../../interface';
 import HomePage from '../homePage/HomePage';
 import NavigationBar from '../navigationBar/NavigationBar';
+import TradePlace from '../tradePlace/TradePlace';
 
 const MainPage: React.FC<MainPageProps> = (props: MainPageProps): JSX.Element => {
 	const [activePage, setActivePage] = useState<string>(pageNames.home);
@@ -20,7 +21,7 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps): JSX.Element =>
 				resultComponent = <div>Work Place</div>;
 				break;
 			case pageNames.tradePlace:
-				resultComponent = <div>Trade Place</div>;
+				resultComponent = <TradePlace myShifts={props.userData.shifts} shiftsForGrabs={props.userData.shifts} />;
 				break;
 			case pageNames.manage:
 				resultComponent = <div>Manage</div>;

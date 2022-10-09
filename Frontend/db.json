@@ -1,42 +1,50 @@
 {
 	"users":[
 		{
-			"username": "Bosco",
-			"userEmail": "bosco@gmail.com",
+			"name": "Bosco",
+			"email": "bosco@gmail.com",
 			"password": "bosco",
-			"userRole": "Student Employee",
+			"role": "Student Employee",
 			"shifts": [
 				{
-				"shiftID": 1,
-				"shiftStart": "10/7/22 10am",
+				"shiftId": 1,
+				"shiftFrom": "10/7/22 10am",
 				"shiftEnd": "10/7/22 5pm",
-				"storeName": "Jason's Dali"
+				"storeName": "Jason's Dali",
+				"shiftToggle": 0,
+				"weekNumber": 1
 				},
 				{
-					"shiftID": 2,
-					"shiftStart": "11/7/22 10am",
+					"shiftId": 2,
+					"shiftFrom": "11/7/22 10am",
 					"shiftEnd": "11/7/22 5pm",
-					"storeName": "Jason's Dali"
+					"storeName": "Jason's Dali",
+					"shiftToggle": 0,
+					"weekNumber": 1
 					}
 			]
 		},
 		{
-			"username": "Prasad",
-			"userEmail": "prasad@gmail.com",
+			"name": "Prasad",
+			"email": "prasad@gmail.com",
 			"password": "prasad",
-			"userRole": "Supervisor",
+			"role": "Supervisor",
 			"shifts": [
 				{
-				"shiftID": 3,
-				"shiftStart": "10/7/22 10am",
+				"shiftId": 3,
+				"shiftFrom": "10/7/22 10am",
 				"shiftEnd": "10/7/22 5pm",
-				"storeName": "Jason's Dali"
+				"storeName": "Jason's Dali",
+				"shiftToggle": 0,
+				"weekNumber": 1
 				},
 				{
-					"shiftID": 4,
-					"shiftStart": "11/7/22 10am",
+					"shiftId": 4,
+					"shiftFrom": "11/7/22 10am",
 					"shiftEnd": "11/7/22 5pm",
-					"storeName": "Jason's Dali"
+					"storeName": "Jason's Dali",
+					"shiftToggle": 0,
+					"weekNumber": 1
 				}
 			]
 		}

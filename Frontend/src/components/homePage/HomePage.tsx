@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Container, Table} from 'react-bootstrap';
 import type {HomePageProps, NotificationObject, ShiftObject} from '../../interface';
+import {getTimeInHoursMinutesFromDate} from '../../utils';
 
 const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element => {
 	const [username, setUsername] = useState<string>('');
@@ -17,7 +18,8 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 						{props.userData.shifts.map((shift: ShiftObject, idx: number) => (
 							<tr key={idx}>
 								<td>
-									{shift.shiftStart} - {shift.shiftEnd}
+									{/* {shift.shiftFrom.getDay()}, {getTimeInHoursMinutesFromDate(shift.shiftFrom)} to {getTimeInHoursMinutesFromDate(shift.shiftEnd)} */}
+									example1
 								</td>
 							</tr>
 						))}
