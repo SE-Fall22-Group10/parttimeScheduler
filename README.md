@@ -6,7 +6,8 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/boscosylvester-john/parttimeScheduler?color=orange)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/boscosylvester-john/parttimeScheduler?color=purple)
 ![GitHub contributors](https://img.shields.io/github/contributors/boscosylvester-john/parttimeScheduler?color=yellow)
-
+![GitHub issues](https://img.shields.io/github/issues/boscosylvester-john/parttimeScheduler?color=teal)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/boscosylvester-john/parttimeScheduler?color=aqua)
 ---
 ## Technical Stack
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
