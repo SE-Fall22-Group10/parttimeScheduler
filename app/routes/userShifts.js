@@ -150,7 +150,7 @@ router.post("/updateShift", async (req, res) => {
 //Offer Shift to Bidders or Traders
 router.post("/offerShift", async (req, res) => {
   try {
-    const shiftId = ObjectId(req.body.shiftId);
+    const shiftId = req.body.shiftId;
     const weekNumber = req.body.weekNumber;
     var f = await User.findOne({ email: req.body.email });
     for(let weekly of f["shifts"]){
