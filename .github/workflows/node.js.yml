@@ -27,10 +27,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
+    - run: npm start
       env:
         MONGODB_URL: ${{ secrets.MONGODB_URL }}
         EXPRESS_SESSION_SECRET: ${{ secrets.EXPRESS_SESSION_SECRET }}
         PORT: ${{ secrets.PORT }}
         JWT_SECRET_TOKEN: ${{ secrets.JWT_SECRET_TOKEN }}
-    - run: npm start
     - run: npm test
