@@ -61,13 +61,20 @@ The things the project intends to deliver-<br>
     - Statistics related to shifts in the current week like hours completed, scheduled etc.
     - To have a quick look at the status of requests made for shift change or drop
     - Links to all pages from the navigation bar.
-- To schow the students schedule in detail with a single view showing shifts at multiple workplaces.
+- To show the students schedule in detail with a single view showing shifts at multiple workplaces.
 - It also shows a view which shows the schedule for the current week for all the students working at the given selected workplace. Eg. Schedule of all the students working at Starbucks in the given week.
 - Then come the tradeplace where one can select froma list of his/her own shifts and <em> offer</em> them to other people.
 - There is also an option for you to <em>takeup</em> someone else's shift that has been <em> offered</em>.
 - If your <em> offered</em> shift is <em>takenup</em> by someone else then it will be removed from your schedule and added to their schedule.
 
 >For Supervisors -<br>
+- They have the ability to onboard the students working at their store. They have the ability to generate a default password for the Student account.
+- They will have to fix a weekly schedule for all student employees based on the staff requirements and taking into consideration the students study schedule.
+- They will have the authority to fire and remove any student from the system for not reporting on shifts and any other reasons as deemed necessary.
+- They will have to approve each <em>offer </em> request raised by the students where they don't want to attend the shift.
+- They wil have access to more advanced statistics for each of the students working at theie store.
+- They will have to manually or electronically verify the in and out time punched in by the student.
+ -Basically they have superior admin right to this system. 
 
 
 ---
@@ -138,8 +145,7 @@ The things the project intends to deliver-<br>
 [License Guidelines](https://github.com/boscosylvester-john/parttimeScheduler/blob/main/LICENSE.md)
 
 ---
-## Future Scope
-----
+
 
 ## Contribute
 
