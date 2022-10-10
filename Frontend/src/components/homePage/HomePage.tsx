@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Container, Table} from 'react-bootstrap';
-import type {HomePageProps, NotificationObject, ShiftObject} from '../../interface';
+import type {HomePageProps, NotificationObject, RequestForTakeUpObject, ShiftObject} from '../../interface';
 import {getTimeInHoursMinutesFromDate, getWeekNumber} from '../../utils';
 
 const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element => {
@@ -30,6 +30,11 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 		}
 
 		return 0;
+	};
+
+	const getUnGrabbedRequests = () => {
+		const ungrabbedRequests = props.requestForTakeUp.filter(request => request.grabbed === 0);
+		return ungrabbedRequests;
 	};
 
 	return (
@@ -62,9 +67,9 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 					</thead>
 					<tbody>
 						{
-							props.userNotifications.map((notif: NotificationObject) => (
-								<tr key={notif.notificationId}>
-									<td>{notif.message}</td>
+							props.userNotifications.map((notif: NotificationObject, idx: number) => (
+								<tr key={idx}>
+									<td>{notif.message} <i>({notif.storeName})</i></td>
 								</tr>
 							))
 						}
@@ -87,17 +92,21 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 				</Table>
 			</Container>
 
-			<Container className='tablePendingApprovals' style={{width: '30%', minHeight: '30vh', maxHeight: '40vh', margin: '5% 4%', display: 'block', overflowY: 'scroll'}}>
+			<Container className='tablePendingRequests' style={{width: '30%', minHeight: '30vh', maxHeight: '40vh', margin: '5% 4%', display: 'block', overflowY: 'scroll'}}>
 				<Table striped bordered hover>
 					<thead>
 						<tr>
-							<th>Pending Approvals</th>
+							<th>Pending Requests</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Shift has not been picked up</td>
-						</tr>
+						{
+							getUnGrabbedRequests().map((request: RequestForTakeUpObject, idx: number) => (
+								<tr key={idx}>
+									<td>{request.offerer} has offered their shift for grabs <i>({request.storeName})</i></td>
+								</tr>
+							))
+						}
 					</tbody>
 				</Table>
 			</Container>

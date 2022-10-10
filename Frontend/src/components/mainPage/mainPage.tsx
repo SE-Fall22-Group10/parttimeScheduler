@@ -12,7 +12,7 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps): JSX.Element =>
 		let resultComponent = null;
 		switch (pgName) {
 			case pageNames.home:
-				resultComponent = <HomePage userData={props.userData} userNotifications={props.userNotifications} setActivePage={setActivePage} />;
+				resultComponent = <HomePage userData={props.userData} userNotifications={props.userNotifications} requestForTakeUp={props.requestForTakeUp} setActivePage={setActivePage} />;
 				break;
 			case pageNames.mySchedule:
 				resultComponent = <div>My Schedule</div>;
@@ -21,7 +21,7 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps): JSX.Element =>
 				resultComponent = <div>Work Place</div>;
 				break;
 			case pageNames.tradePlace:
-				resultComponent = <TradePlace myShifts={props.userData.shifts} shiftsForGrabs={props.userData.shifts} />;
+				resultComponent = <TradePlace myShiftsForWeek={props.userData.shifts} shiftsForGrabs={props.requestForTakeUp} />;
 				break;
 			case pageNames.manage:
 				resultComponent = <div>Manage</div>;
