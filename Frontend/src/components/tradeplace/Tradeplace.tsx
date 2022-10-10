@@ -8,7 +8,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 const TradePlace: React.FC<TradePlaceProps> = (props: TradePlaceProps): JSX.Element => {
 	const [activeKey, setActiveKey] = useState<string>(tradeShiftTypes.offerUp);
-	console.log(activeKey);
 
 	const convertShiftsPerWeekToShift = () => {
 		const shiftsForWeek = props.myShiftsForWeek.map(shiftPerWeek => shiftPerWeek.shiftArray).flat();

@@ -22,6 +22,7 @@ export const getWeekNumber = (date: Date): number => {
 	// eslint-disable-next-line no-bitwise
 	const weekNumber = (4 * date.getMonth()) + (~~(date.getDate() / 7)) + 1;
 	return weekNumber;
+	// Return 42;
 };
 
 export const getUniqueStoresForEmployee = (userData: UserDetailsObject): string[] => {

@@ -5,7 +5,6 @@ import {getDateStringFromDate, getDayNameFromDate, getTimeInHoursMinutesFromDate
 
 const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element => {
 	const [username, setUsername] = useState<string>('');
-	console.log(props);
 	const getUpcomingShifts = (): ShiftObject[] => {
 		const currentDate = new Date();
 		const currentWeekNumber = getWeekNumber(currentDate);

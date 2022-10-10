@@ -44,6 +44,7 @@ export type ShiftObject = {
 	storeName: string;
 	shiftHours: number;
 	shiftForGrabsStatus: string;
+	shiftId: string;
 };
 
 export type NotificationObject = {

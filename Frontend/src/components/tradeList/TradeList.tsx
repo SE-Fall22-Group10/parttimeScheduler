@@ -3,9 +3,12 @@ import Button from 'react-bootstrap/Button';
 import React, {useState} from 'react';
 import type {ShiftObject, TradeListProps} from '../../interface';
 import {getTimeInHoursMinutesFromDate} from '../../utils';
+import {tradeShiftTypes} from '../../constants';
+import {offerShiftApi} from '../../apiCalls';
 
 const TradeList = (props: TradeListProps): JSX.Element => {
-	console.log('Trade List');
+	console.log('hi');
+	console.log(props);
 	return (
 		<Table striped bordered hover responsive>
 			<thead>
@@ -19,7 +22,7 @@ const TradeList = (props: TradeListProps): JSX.Element => {
 			</thead>
 			<tbody>
 				{props.shiftsForTrade.shifts
-					.filter(shift => shift.storeName === 'Jasons')
+					.filter(shift => shift.storeName === props.selectedStore)
 					.map((shift: ShiftObject, idx: number) => (
 						<tr key={idx}>
 							<td>{idx + 1}</td>
