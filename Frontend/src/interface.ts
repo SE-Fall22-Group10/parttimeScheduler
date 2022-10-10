@@ -73,3 +73,7 @@ export type RequestForTakeUpObject = {
 	weekNumber: number;
 	shift: ShiftObject;
 };
+
+export type MyScheduleProps = {
+	userData: UserDetailsObject;
+};
