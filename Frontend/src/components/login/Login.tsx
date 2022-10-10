@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Container, Row} from 'react-bootstrap';
-import {getNotifications, getUser} from '../../apiCalls';
+import {getNotifications, getRequestsForTakeUp, getUser} from '../../apiCalls';
 import type {LoginProps, UserDetailsObject} from '../../interface';
 // Import loginCss from './Login.module.css';
 
@@ -16,13 +16,16 @@ const Login: React.FC<LoginProps> = (props: LoginProps): JSX.Element => {
 				setLoginMessage('Invalid email or password');
 			} else {
 				const finalUser = user as UserDetailsObject;
+				const firstStoreName = finalUser.shifts[0].shiftArray[0].storeName;
 				// Get notifications for users
-				const userNotifications = await getNotifications(userEmail);
+				const userNotifications = await getNotifications(firstStoreName);
 				props.setUserNotifications(userNotifications);
 
 				// Get pending requests for user
+				const pendingRequests = await getRequestsForTakeUp(firstStoreName);
+				props.setRequestsForTakeUp(pendingRequests);
 
-				// set state variables based on successful login
+				// Set state variables based on successful login
 				props.setIsUserLoggedIn(true);
 				console.log('login successful');
 				setLoginMessage('Successful Login');

@@ -11,6 +11,13 @@ export const getTimeInHoursMinutesFromDate = (date: Date): string => {
 	return hrsCheck0.toString() + ':' + mins.toString() + ' ' + amPm;
 };
 
+export const getDateStringFromDate = (date: Date): string => {
+	const dd = date.getDate();
+	const mm = date.getMonth() + 1;
+	const yyyy = date.getFullYear();
+	return mm.toString() + '/' + dd.toString() + '/' + yyyy.toString();
+};
+
 export const getWeekNumber = (date: Date): number => {
 	// eslint-disable-next-line no-bitwise
 	const weekNumber = (4 * date.getMonth()) + (~~(date.getDate() / 7)) + 1;

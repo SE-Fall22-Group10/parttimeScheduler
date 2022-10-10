@@ -2,17 +2,20 @@ export type LoginProps = {
 	setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
 	setUserData: (userData: UserDetailsObject) => void;
 	setUserNotifications: (userNotifications: NotificationObject[]) => void;
+	setRequestsForTakeUp: (requestsForTakeUp: RequestForTakeUpObject[]) => void;
 };
 
 export type MainPageProps = {
 	userData: UserDetailsObject;
 	userNotifications: NotificationObject[];
+	requestForTakeUp: RequestForTakeUpObject[];
 	setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
 };
 
 export type HomePageProps = {
 	userData: UserDetailsObject;
 	userNotifications: NotificationObject[];
+	requestForTakeUp: RequestForTakeUpObject[];
 	setActivePage: (pageName: string) => void;
 };
 
@@ -58,6 +61,19 @@ export type TradeListProps = {
 };
 
 export type TradePlaceProps = {
-	myShifts: ShiftObject[];
-	shiftsForGrabs: ShiftObject[];
+	myShiftsForWeek: ShiftsPerWeek[];
+	shiftsForGrabs: RequestForTakeUpObject[];
+};
+
+export type RequestForTakeUpObject = {
+	offerer: string;
+	grabbed: number;
+	storeName: string;
+	taker: string;
+	weekNumber: number;
+	shift: ShiftObject;
+};
+
+export type MyScheduleProps = {
+	userData: UserDetailsObject;
 };
