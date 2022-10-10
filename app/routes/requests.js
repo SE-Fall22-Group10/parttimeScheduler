@@ -10,40 +10,48 @@ const auth = require("../middleware/authentication");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-//GET-method
+//POST-method
 //Get all stores
-router.get("/allNotifs", adminAuth, async (req, res) => {
+router.post("/allnotifs", async (req, res) => {
   try {
     var notifs = await Notif.find();
-    res.status(200).send(JSON.stringify(notifs));
+    ans = []
+    for(let note of notifs)
+    {if(note['storeName']==req.body.storeName)
+     ans.push(note)}
+    res.status(200).send(ans);
   } catch (e) {
     console.log(e);
     res.status(400).send(e);
   }
 });
 
-// GET-method
+// POST-method
 // Get all requests
-router.get("/allRequests", adminAuth, async (req, res) => {
+router.post("/allrequests", adminAuth, async (req, res) => {
   try {
     var reqs = await Reqs.find();
-    res.status(200).send(JSON.stringify(reqs));
+    ans = []
+    for(let r of reqs)
+    {if(r['storeName']==req.body.storeName)
+     ans.push(r)}
+    res.status(200).send(ans);
   } catch (e) {
     console.log(e);
     res.status(400).send(e);
   }
 });
 
-// GET-method
+// POST-method
 // Get open requests
-router.get("/openrequests", adminAuth, async (req, res) => {
+router.post("/openrequests", async (req, res) => {
   try {
     var reqs = await Reqs.find();
     console.log(reqs);
     ans = [];
-    for (let req of reqs) {
-      if ((req["grabbed"] == 0)) {
-        ans.push(req)
+    for (let r of reqs) {
+      if ((r["grabbed"] == 0 && r["storeName"]==req.body.storeName)) {
+        ans.push(r)
       }
     }
     res.status(200).send(ans);
@@ -53,15 +61,15 @@ router.get("/openrequests", adminAuth, async (req, res) => {
   }
 });
 
-// GET-method
+// POST-method
 // Get closed requests
-router.get("/closedrequests", adminAuth, async (req, res) => {
+router.post("/closedrequests", async (req, res) => {
     try {
       var reqs = await Reqs.find();
       ans = [];
-      for (let req of reqs) {
-        if ((req["grabbed"] == 1)) {
-          ans.push(req)
+      for (let r of reqs) {
+        if ((r["grabbed"] == 1) && r["storeName"]==req.body.storeName) {
+          ans.push(r)
         }
       }
       res.status(200).send(ans);
