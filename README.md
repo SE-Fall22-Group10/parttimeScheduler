@@ -25,7 +25,11 @@
 ## Motivation
 > There are a lot of students that manage multiple on campus jobs at the same time. Creating a unified interface that helps manage all of them would prove to be a life saver for them. Currently the employer chooses their own platform and the student has to manage all those different applications at once.
 
-<img src="https://github.com/boscosylvester-john/parttimeScheduler/blob/main/images/parttimeScheduler.mp4" width="400" height="300" />
+
+
+https://user-images.githubusercontent.com/51780939/194799168-886cd2e7-66c9-419f-a933-03e66bb77d5b.mp4
+
+
 ---
 ## Features
 ### Users
