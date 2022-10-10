@@ -70,70 +70,102 @@ router.post("/addShift", async (req, res) => {
 // POST-method
 // update shift details for a user
 router.post("/updateShift", async (req, res) => {
-  try {
-    const shiftFrom = new Date(req.body.shiftFrom);
-    const shiftTill = new Date(req.body.shiftTill);
-    const storeName = req.body.storeName;
-    const shiftId = req.body.shiftId;
-    const sch = {
-      shiftFrom: shiftFrom,
-      shiftTill: shiftTill,
-      storeName: storeName,
-    };
-
-    if (!shiftFrom || !shiftTill) {
-      return res.status(400).send({ Message: "Time not in required format!" });
-    }
-    var f = await User.findOne({ email: req.body.email });
-    for (let shift of f["shifts"]) {
-      // console.log(shift["_id"] == shiftId);
-      if (shift["_id"] == shiftId) {
-        shift["shiftFrom"] = shiftFrom;
-        shift["shiftTill"] = shiftTill;
-        shift["storeName"] = storeName;
-        f.shiftHours = shiftTill.getHours() - shiftFrom.getHours();
-        if (f.shiftHours > 20) {
-          return res
-            .status(400)
-            .send({ Message: "Shift Hours exceeded! Cannot Add Shift" });
+    try{
+        const weekNumber = req.body.weekNumber;
+        const shiftFrom = new Date(req.body.shiftFrom);
+        const shiftTill = new Date(req.body.shiftTill);
+        const storeName = req.body.storeName;
+        const shiftId = req.body.shiftId;
+        var newWeekNumber = 4*shiftFrom.getMonth()+~~(shiftFrom.getDate()/7)+1;
+        const sch = {
+          weekNumber: newWeekNumber,
+          shiftArray:[{
+          "shiftFrom": shiftFrom,
+          "shiftTill": shiftTill,
+          "shiftHours": shiftTill.getHours()-shiftFrom.getHours(),
+          "storeName": storeName}]
+        };
+        const sch1 = {
+          "shiftFrom": shiftFrom,
+          "shiftTill": shiftTill,
+          "shiftHours": shiftTill.getHours()-shiftFrom.getHours(),
+          "storeName": storeName
         }
-        var week = shiftFrom.getDate();
-        f.weekNumber = ~~(week / 7) + 1;
-        break;
-      }
+        
+        if (!shiftFrom || !shiftTill) {
+            return res.status(400).send({Message: "Time not in required format!"});
+        }
+        var f = await User.findOne({email: req.body.email});
+        for(let weekly of f["shifts"]){
+            // console.log(shift["_id"] == shiftId);
+            if(weekly["weekNumber"] == weekNumber){
+              for(let shift of weekly["shiftArray"]){
+                if(shift["_id"] == shiftId){
+                  console.log(newWeekNumber);
+                  // check if the new weekNumber is same as the current weeknumber
+                  console.log(f["shifts"]);
+                  if(newWeekNumber == weekNumber){       
+                    // console.log("if yes, just update the shift");            
+                    shift["shiftFrom"] = shiftFrom;
+                    shift["shiftTill"] = shiftTill;
+                    shift["storeName"] = storeName;
+                    shift["shiftHours"] = shiftTill.getHours()-shiftFrom.getHours();
+                  }else{
+                    // console.log("if no, remove the shift from the week, and add the shift into the user");
+                    weekly["shiftArray"].pop(shift);
+
+                    var flag = 0;
+                    for(let matchShift of f["shifts"]){
+                      console.log(newWeekNumber, "new");
+                      console.log(matchShift["weekNumber"]);
+                      if(matchShift['weekNumber'] == newWeekNumber){
+                        console.log("pushing");
+                        matchShift['shiftArray'].push(sch1);
+                        flag=1;
+                      }
+                    }
+                    if(flag==0){
+                      f.shifts.push(sch);
+
+                    }
+                  }
+                  break;               
+                }
+              }
+            }
+        }
+        f.save()
+        res.status(200).send(f);
+    }catch (e) {
+        if (e.code === 11000) {
+            res.status(409).send({ Message: "Shift not found" });
+        } else {
+        console.log(e);
+        res.status(400).send(e);
+        }
     }
-    f.save();
-    res.status(200).send(f);
-  } catch (e) {
-    if (e.code === 11000) {
-      res.status(409).send({ Message: "Shift not found" });
-    } else {
-      console.log(e);
-      res.status(400).send(e);
-    }
-  }
 });
 
 //POST-method
 //Offer Shift to Bidders or Traders
 router.post("/offerShift", async (req, res) => {
   try {
-    console.log(req.body);
     const shiftId = req.body.shiftId;
+    const weekNumber = req.body.weekNumber;
     var f = await User.findOne({ email: req.body.email });
-    for (let shift of f["shifts"]) {
-      // console.log(shift["_id"] == shiftId);
-      if (shift["_id"] == shiftId) {
-        shift["shiftToggle"] = "Up for grabs";
-        var reqs = new Req({
-          offerer: req.body.email,
-          grabbed: 0,
-          shiftId: shiftId,
-          storeName: storeName
-        });
-        await reqs.save();
-        console.log(reqs);
-        break;
+    for(let weekly of f["shifts"]){
+      if(weekly["weekNumber"] == weekNumber){
+        for(let shift of weekly["shiftArray"]){
+          if(shift["_id"] == shiftId){
+              shift["shiftForGrabsStatus"] = "Up for grabs";
+              var reqs = new Req({
+                offerer: req.body.email,
+                grabbed: 0          });
+              await reqs.save();
+              console.log(reqs)
+              break;               
+          }
+        }
       }
     }
     //Saving Req object to the db.
