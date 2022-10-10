@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // Middlewares
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(session({secret: secrets.EXPRESS_SESSION_SECRET, saveUninitialized: true, resave: true}))
+app.use(session({secret: process.env.EXPRESS_SESSION_SECRET, saveUninitialized: true, resave: true}))
 
 // Route for the Main page
 app.get('/', auth, (req, res) => {
