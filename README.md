@@ -50,8 +50,9 @@ https://user-images.githubusercontent.com/51780939/194799168-886cd2e7-66c9-419f-
     Their resposibilities include - 
     - Hiring and onborading new student employees and giving them access to their shift management system. 
     - They also have to fix a schedule for each student keeping in mind the staff strength required at the store.
-    - They need to verifythe attendance records for all the students attending their shifts.
-    -  <br>
+    - They need to verify the attendance records for all the students attending their shifts.
+    - They need to approve each request of a student dropping their shifts
+    - They are resposible to keep track of the infraction points for students when they miss their shift.  <br>
 
 ### Components
 The components for the system are-
@@ -140,7 +141,52 @@ The things the project intends to deliver-<br>
 
 
 ## Coverage Reports
+<table class="coverage-summary">
+<thead>
+<tr>
+   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
+   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
+   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
+   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
+   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
+</tr>
+</thead>
+<tbody><tr>
+	<td class="file low" data-value="middleware">middleware</td>
+	<td data-value="29.54" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 29%"></div><div class="cover-empty" style="width: 71%"></div></div>
+	</td>
+	<td data-value="29.54" class="pct low">29.54%</td>
+	<td data-value="44" class="abs low">13/44</td>
+	<td data-value="29.54" class="pct low">29.54%</td>
+	<td data-value="44" class="abs low">13/44</td>
+	</tr>
 
+<tr>
+	<td class="file medium" data-value="models">models</td>
+	<td data-value="71.42" class="pic medium">
+	<div class="chart"><div class="cover-fill" style="width: 71%"></div><div class="cover-empty" style="width: 29%"></div></div>
+	</td>
+	<td data-value="71.42" class="pct medium">71.42%</td>
+	<td data-value="7" class="abs medium">5/7</td>
+	<td data-value="71.42" class="pct medium">71.42%</td>
+	<td data-value="7" class="abs medium">5/7</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="routes">routes</td>
+	<td data-value="30.95" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 30%"></div><div class="cover-empty" style="width: 70%"></div></div>
+	</td>
+	<td data-value="30.95" class="pct low">30.95%</td>
+	<td data-value="42" class="abs low">13/42</td>
+	<td data-value="30.95" class="pct low">30.95%</td>
+	<td data-value="42" class="abs low">13/42</td>
+	</tr>
+
+</tbody>
+</table>
 
 ---
 
