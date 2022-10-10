@@ -2,7 +2,7 @@ const express = require('express')
 var app = express()
 require('dotenv').config()
 require('./app/db/mongoose')
-var PORT = process.env.PORT || 5000
+var PORT = process.env.PORT || 8080
 const bodyParser = require('body-parser')
 var auth = require('./app/middleware/authentication')
 var adminAuth = require('./app/middleware/adminAuth')

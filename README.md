@@ -59,10 +59,15 @@ The things the project intends to deliver-<br>
 - Give an interactive Homepage to view numerous things like-
     - Their upcoming shifts
     - Statistics related to shifts in the current week like hours completed, scheduled etc.
-    - To have a quick look at the status of requests made for shift change or drop<br>
+    - To have a quick look at the status of requests made for shift change or drop
     - Links to all pages from the navigation bar.
-- To schow the students schedule in detail
-- 
+- To schow the students schedule in detail with a single view showing shifts at multiple workplaces.
+- It also shows a view which shows the schedule for the current week for all the students working at the given selected workplace. Eg. Schedule of all the students working at Starbucks in the given week.
+- Then come the tradeplace where one can select froma list of his/her own shifts and <em> offer</em> them to other people.
+- There is also an option for you to <em>takeup</em> someone else's shift that has been <em> offered</em>.
+- If your <em> offered</em> shift is <em>takenup</em> by someone else then it will be removed from your schedule and added to their schedule.
+
+>For Supervisors -<br>
 
 
 ---
