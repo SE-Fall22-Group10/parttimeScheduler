@@ -150,7 +150,7 @@ router.post("/updateShift", async (req, res) => {
 //Offer Shift to Bidders or Traders
 router.post("/offerShift", async (req, res) => {
   try {
-    const shiftId = req.body.shiftId;
+    const shiftId = ObjectId(req.body.shiftId);
     const weekNumber = req.body.weekNumber;
     var f = await User.findOne({ email: req.body.email });
     for(let weekly of f["shifts"]){
@@ -186,27 +186,32 @@ router.post("/offerShift", async (req, res) => {
 //Apply for bidding
 router.post("/applyBid", async (req, res) => {
   try {
-    console.log(req.body);
-    const shiftId = req.body.shiftId;
-    const takeremail = req.body.takeremail;
-    var f = await User.findOne({ email: req.body.email });
+    // console.log(req.body);
+    const shiftId = ObjectId(req.body.shiftId);
+    const takerEmail = req.body.takerEmail;
+    const weekNumber = req.body.weekNumber;
+    var f = await User.findOne({ email: req.body.giverEmail });
     var sch = 0;
-    for (let shift of f["shifts"]) {
-      // console.log(shift["_id"] == shiftId);
-      if (shift["_id"] == shiftId) {
-        shift["shiftForGrabsStatus"] = "Shift taken";
-        break;
+    for(let weekly of f["shifts"]){
+      if(weekly["weekNumber"] == weekNumber){
+        for(let shift of weekly["shiftArray"]){
+          if(shift["_id"] == shiftId){
+            shift["shiftForGrabsStatus"] = "Shift taken";
+            var reqs = await Req.findOne({ shift: Object(shift) });
+            reqs["grabbed"] = 1;
+            reqs["taker"] = takerEmail;
+            await reqs.save();
+            break;
+          }
+        }
       }
     }
-    var g = await User.findOne({ email: takeremail });
+    var g = await User.findOne({ email: takerEmail });
     console.log(f);
     console.log(g);
     g.shifts.push(sch);
-    var reqs = await Req.findOne({ shiftid: shiftId });
-    reqs["grabbed"] = 1;
-    reqs["taker"] = takeremail;
+    
     //Saving Req object to the db.
-    await reqs.save();
     //send index instead of obj id
     await f.save();
     await g.save();
