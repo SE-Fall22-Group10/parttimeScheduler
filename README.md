@@ -1,5 +1,8 @@
 # Part Time Work Scheduler
 > This is a requirement for NCSU's CSC510 Software Engineering Course project 1 for Group 10.
+<p align="center">
+<img src="https://github.com/boscosylvester-john/parttimeScheduler/blob/main/images/SHIFTMATE.gif" width="400" height="300" />
+</p>
 
 [![DOI](https://zenodo.org/badge/541409211.svg)](https://zenodo.org/badge/latestdoi/541409211)
 ![GitHub](https://img.shields.io/github/license/boscosylvester-john/parttimeScheduler?color=blueviolet)
