@@ -122,20 +122,22 @@ router.post("/offerShift", async (req, res) => {
     const shiftId = req.body.shiftId;
     var f = await User.findOne({ email: req.body.email });
     for (let shift of f["shifts"]) {
+      for(let s of shift['shiftArray']){
       // console.log(shift["_id"] == shiftId);
-      if (shift["_id"] == shiftId) {
-        shift["shiftToggle"] = "Up for grabs";
+      if (s["_id"] == shiftId) {
+        s["shiftForGrabsStatus"] = "Up for grabs";
         var reqs = new Req({
           offerer: req.body.email,
           grabbed: 0,
-          shiftId: shiftId,
-          storeName: storeName
+          shift: s,
+          weekNumber: shift['weekNumber'],
+          storeName: s["storeName"]
         });
         await reqs.save();
         console.log(reqs);
         break;
       }
-    }
+    }}
     //Saving Req object to the db.
     //send index instead of obj id
     await f.save();
