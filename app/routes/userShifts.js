@@ -156,11 +156,12 @@ router.post("/offerShift", async (req, res) => {
     for(let weekly of f["shifts"]){
       if(weekly["weekNumber"] == weekNumber){
         for(let shift of weekly["shiftArray"]){
-          if(shift["_id"] == shiftId){
+          if(shift._id.equals(shiftId)){
               shift["shiftForGrabsStatus"] = "Up for grabs";
               var reqs = new Req({
                 offerer: req.body.email,
-                grabbed: 0          });
+                grabbed: 0 ,
+                shift:    shift      });
               await reqs.save();
               console.log(reqs)
               break;               
@@ -187,7 +188,7 @@ router.post("/offerShift", async (req, res) => {
 router.post("/applyBid", async (req, res) => {
   try {
     // console.log(req.body);
-    const shiftId = ObjectId(req.body.shiftId);
+    const shiftId = req.body.shiftId;
     const takerEmail = req.body.takerEmail;
     const weekNumber = req.body.weekNumber;
     var f = await User.findOne({ email: req.body.giverEmail });
@@ -195,13 +196,15 @@ router.post("/applyBid", async (req, res) => {
     for(let weekly of f["shifts"]){
       if(weekly["weekNumber"] == weekNumber){
         for(let shift of weekly["shiftArray"]){
-          if(shift["_id"] == shiftId){
+          if(shift._id.equals(shiftId)){
             shift["shiftForGrabsStatus"] = "Shift taken";
-            var reqs = await Req.findOne({ shift: Object(shift) });
-            reqs["grabbed"] = 1;
-            reqs["taker"] = takerEmail;
-            await reqs.save();
-            break;
+            var reqs = await Req.find();
+            for(let r of reqs)
+            {if(r["offerer"]== req.body.giverEmail){
+            r["grabbed"] = 1;
+            r["taker"] = takerEmail;
+            break;}
+}
           }
         }
       }
