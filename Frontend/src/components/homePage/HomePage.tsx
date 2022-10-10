@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import {Container, Table} from 'react-bootstrap';
 import type {HomePageProps, NotificationObject, RequestForTakeUpObject, ShiftObject} from '../../interface';
-import {getTimeInHoursMinutesFromDate, getWeekNumber} from '../../utils';
+import {getDateStringFromDate, getDayNameFromDate, getTimeInHoursMinutesFromDate, getWeekNumber} from '../../utils';
 
 const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element => {
 	const [username, setUsername] = useState<string>('');
-
+	console.log(props);
 	const getUpcomingShifts = (): ShiftObject[] => {
 		const currentDate = new Date();
 		const currentWeekNumber = getWeekNumber(currentDate);
 		const recentShifts = props.userData.shifts.filter(shift => shift.weekNumber >= currentWeekNumber && shift.weekNumber <= currentWeekNumber + 1);
 		if (recentShifts) {
 			const allShifts = recentShifts.map(shiftPerWk => shiftPerWk.shiftArray).flat();
-			const sortedShifts = allShifts.sort((a, b) => a.shiftFrom.getTime() - b.shiftFrom.getTime());
+			const sortedShifts = allShifts.sort((a, b) => new Date(a.shiftFrom).getTime() - new Date(b.shiftFrom).getTime());
 			return sortedShifts;
 		}
 
@@ -39,7 +39,7 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 
 	return (
 		<>
-			<Container className='tableUpcomingShifts' style={{width: '30%', minHeight: '30vh', maxHeight: '40vh', margin: '4%', display: 'block', overflowY: 'scroll', float: 'right'}}>
+			<Container className='tableUpcomingShifts' style={{width: '35%', minHeight: '30vh', maxHeight: '40vh', margin: '4%', display: 'block', overflowY: 'scroll', float: 'right'}}>
 				<Table striped bordered hover>
 					<thead>
 						<tr>
@@ -50,7 +50,7 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 						{getUpcomingShifts().map((shift: ShiftObject, idx: number) => (
 							<tr key={idx}>
 								<td>
-									{shift.shiftFrom.getDay()}, {getTimeInHoursMinutesFromDate(shift.shiftFrom)} to {getTimeInHoursMinutesFromDate(shift.shiftTill)}
+									{getDayNameFromDate(new Date(shift.shiftFrom))} | {getDateStringFromDate(new Date(shift.shiftFrom))}, {getTimeInHoursMinutesFromDate(new Date(shift.shiftFrom))} to {getTimeInHoursMinutesFromDate(new Date(shift.shiftTill))}
 								</td>
 							</tr>
 						))}
@@ -58,7 +58,7 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 				</Table>
 			</Container>
 
-			<Container className='tableNotifications' style={{width: '30%', minHeight: '30vh', maxHeight: '40vh', margin: '4%', display: 'block', overflowY: 'scroll'}}>
+			<Container className='tableNotifications' style={{width: '35%', minHeight: '30vh', maxHeight: '40vh', margin: '4%', display: 'block', overflowY: 'scroll'}}>
 				<Table striped bordered hover>
 					<thead>
 						<tr>
@@ -66,22 +66,23 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 						</tr>
 					</thead>
 					<tbody>
-						{
-							props.userNotifications.map((notif: NotificationObject, idx: number) => (
+						{props.userNotifications.length > 0
+							? props.userNotifications.map((notif: NotificationObject, idx: number) => (
 								<tr key={idx}>
 									<td>{notif.message} <i>({notif.storeName})</i></td>
 								</tr>
 							))
+							:	<tr>No new notifications at this time.</tr>
 						}
 					</tbody>
 				</Table>
 			</Container>
 
-			<Container className='tableHoursScheduled' style={{width: '30%', minHeight: '30vh', maxHeight: '40vh', margin: '4%', display: 'block', float: 'right'}}>
+			<Container className='tableHoursScheduled' style={{width: '35%', minHeight: '30vh', maxHeight: '40vh', margin: '4%', display: 'block', float: 'right'}}>
 				<Table striped bordered hover>
 					<thead>
 						<tr>
-							<th>Hours Scheduled</th>
+							<th>Hours Scheduled for This Week</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -92,7 +93,7 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 				</Table>
 			</Container>
 
-			<Container className='tablePendingRequests' style={{width: '30%', minHeight: '30vh', maxHeight: '40vh', margin: '5% 4%', display: 'block', overflowY: 'scroll'}}>
+			<Container className='tablePendingRequests' style={{width: '35%', minHeight: '30vh', maxHeight: '40vh', margin: '5% 4%', display: 'block', overflowY: 'scroll'}}>
 				<Table striped bordered hover>
 					<thead>
 						<tr>
@@ -101,11 +102,13 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps): JSX.Element =>
 					</thead>
 					<tbody>
 						{
-							getUnGrabbedRequests().map((request: RequestForTakeUpObject, idx: number) => (
-								<tr key={idx}>
-									<td>{request.offerer} has offered their shift for grabs <i>({request.storeName})</i></td>
-								</tr>
-							))
+							getUnGrabbedRequests().length > 0
+								? getUnGrabbedRequests().map((request: RequestForTakeUpObject, idx: number) => (
+									<tr key={idx}>
+										<td>{request.offerer} has offered their shift for grabs <i>({request.storeName})</i></td>
+									</tr>
+								))
+								: <tr>No pending requests at this time.</tr>
 						}
 					</tbody>
 				</Table>

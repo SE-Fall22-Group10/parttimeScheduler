@@ -12,7 +12,7 @@ const jwt = require("jsonwebtoken");
 
 //POST-method
 //Get all stores
-router.post("/allnotifs", async (req, res) => {
+router.post("/allNotifs", async (req, res) => {
   try {
     var notifs = await Notif.find();
     ans = []
@@ -28,7 +28,7 @@ router.post("/allnotifs", async (req, res) => {
 
 // POST-method
 // Get all requests
-router.post("/allrequests", adminAuth, async (req, res) => {
+router.post("/allRequests", adminAuth, async (req, res) => {
   try {
     var reqs = await Reqs.find();
     ans = []

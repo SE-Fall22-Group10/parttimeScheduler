@@ -21,9 +21,9 @@ const NavigationBar: React.FC<MenuProps> = (props: MenuProps): JSX.Element => {
 						<Nav.Link onClick={() => {
 							props.setActivePage(pageNames.mySchedule);
 						}}>{pageNames.mySchedule}</Nav.Link>
-						<Nav.Link onClick={() => {
+						{/* <Nav.Link onClick={() => {
 							props.setActivePage(pageNames.workPlace);
-						}}>{pageNames.workPlace}</Nav.Link>
+						}}>{pageNames.workPlace}</Nav.Link> */}
 						<Nav.Link onClick={() => {
 							props.setActivePage(pageNames.tradePlace);
 						}}>{pageNames.tradePlace}</Nav.Link>

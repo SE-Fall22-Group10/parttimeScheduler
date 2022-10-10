@@ -22,7 +22,7 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps): JSX.Element =>
 			// 	resultComponent = <div>Work Place</div>;
 			// 	break;
 			case pageNames.tradePlace:
-				resultComponent = <TradePlace myShiftsForWeek={props.userData.shifts} shiftsForGrabs={props.requestForTakeUp} />;
+				resultComponent = <TradePlace userData={props.userData} myShiftsForWeek={props.userData.shifts} shiftsForGrabs={props.requestForTakeUp} />;
 				break;
 			case pageNames.manage:
 				resultComponent = <div>Manage</div>;
