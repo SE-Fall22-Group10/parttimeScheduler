@@ -277,12 +277,16 @@ router.delete("/removeShift", async (req, res) => {
   try {
     console.log(req.body);
     const shiftId = req.body.shiftId;
+    const weekNumber = req.body.weekNumber;
     var f = await User.findOne({ email: req.body.email });
-    for (let shift of f["shifts"]) {
-      if (shift["_id"] == shiftId) {
-        f["shifts"].pop(shift);
-        console.log(shift);
-        break;
+    for(let weekly of f["shifts"]){
+      if(weekly["weekNumber"] == weekNumber){
+        for(let shift of weekly["shiftArray"]){
+          if(shift["_id"] == shiftId){
+            weekly["shiftArray"].pop(shift);
+            break;
+          }
+        }
       }
     }
     //send index instead of obj id
