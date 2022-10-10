@@ -39,8 +39,8 @@ export type ShiftsPerWeek = {
 };
 
 export type ShiftObject = {
-	shiftFrom: Date;
-	shiftTill: Date;
+	shiftFrom: string;
+	shiftTill: string;
 	storeName: string;
 	shiftHours: number;
 	shiftForGrabsStatus: string;
@@ -58,11 +58,13 @@ export type TradeListObject = {
 
 export type TradeListProps = {
 	shiftsForTrade: TradeListObject;
+	selectedStore: string;
 };
 
 export type TradePlaceProps = {
 	myShiftsForWeek: ShiftsPerWeek[];
 	shiftsForGrabs: RequestForTakeUpObject[];
+	userData: UserDetailsObject;
 };
 
 export type RequestForTakeUpObject = {

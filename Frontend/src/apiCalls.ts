@@ -5,7 +5,6 @@ export const getUser = async (userEmail: string, password: string): Promise<User
 	// Const result = await axios({method: 'GET', url: 'http://localhost:3000/users', params: {userEmail}});
 	try {
 		const result = await axios({method: 'POST', url: 'http://localhost:8080/login', data: {email: userEmail, password}, responseType: 'json'});
-		console.log(result.data);
 		return result.data as UserDetailsObject;
 	} catch (e: unknown) {
 		console.log(e);
@@ -16,7 +15,8 @@ export const getUser = async (userEmail: string, password: string): Promise<User
 export const getNotifications = async (storeName: string): Promise<NotificationObject[]> => {
 	try {
 		// Const result = await axios({method: 'GET', url: 'http://localhost:3000/notifications', params: {userEmail}});
-		const result = await axios({method: 'GET', url: 'http://localhost:8080/allNotifs', data: {storeName}, responseType: 'json'});
+		const result = await axios({method: 'POST', url: 'http://localhost:8080/allNotifs', data: {storeName}, responseType: 'json'});
+		console.log(result);
 		const notifs = result.data as NotificationObject[];
 		return notifs.slice(-15);
 	} catch (e: unknown) {
@@ -28,7 +28,7 @@ export const getNotifications = async (storeName: string): Promise<NotificationO
 export const getRequestsForTakeUp = async (storeName: string): Promise<RequestForTakeUpObject[]> => {
 	try {
 		// Const result = await axios({method: 'GET', url: 'http://localhost:3000/notifications', params: {userEmail}});
-		const result = await axios({method: 'GET', url: 'http://localhost:8080/allRequests', data: {storeName}, responseType: 'json'});
+		const result = await axios({method: 'POST', url: 'http://localhost:8080/allRequests', data: {storeName}, responseType: 'json'});
 		return result.data as RequestForTakeUpObject[];
 	} catch (e: unknown) {
 		console.log('Error in getting notifications');

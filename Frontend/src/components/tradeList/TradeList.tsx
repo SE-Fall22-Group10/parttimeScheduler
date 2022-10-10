@@ -23,10 +23,10 @@ const TradeList = (props: TradeListProps): JSX.Element => {
 					.map((shift: ShiftObject, idx: number) => (
 						<tr key={idx}>
 							<td>{idx + 1}</td>
-							<td>{shift.shiftFrom.toLocaleDateString()}</td>
+							<td>{new Date(shift.shiftFrom).toLocaleDateString()}</td>
 							<td>
-								{getTimeInHoursMinutesFromDate(shift.shiftFrom)}-
-								{getTimeInHoursMinutesFromDate(shift.shiftTill)}
+								{getTimeInHoursMinutesFromDate(new Date(shift.shiftFrom))}-
+								{getTimeInHoursMinutesFromDate(new Date(shift.shiftTill))}
 							</td>
 							<td>{shift.storeName}</td>
 							<td>
