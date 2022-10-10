@@ -21,7 +21,7 @@ userLogin = async(req, res, next) => {
             email: user.email,
             password: user.password
         }
-        const accessToken = jwt.sign(JSON.stringify(accessTokenUser), process.env.JWT_SECRET_TOKEN)
+        const accessToken = jwt.sign(JSON.stringify(accessTokenUser), secrets.JWT_SECRET_TOKEN)
         // req.session.accessToken = accessToken
         req.accessToken = accessToken
         // console.log(req.session)

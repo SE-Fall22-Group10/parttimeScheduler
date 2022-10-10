@@ -7,7 +7,7 @@ const authenticateToken = async(req, res, next) => {
         console.log('No Token')
         return res.status(400).send()
     }
-    jwt.verify(token, process.env.JWT_SECRET_TOKEN, async(err, user) => {
+    jwt.verify(token, secrets.JWT_SECRET_TOKEN, async(err, user) => {
         if(err){
             return res.status(403).send(err)
         }

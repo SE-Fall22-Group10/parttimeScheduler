@@ -2,7 +2,7 @@ const express = require('express')
 var app = express()
 require('dotenv').config()
 require('./app/db/mongoose')
-var PORT = process.env.PORT || 5000
+var PORT = secrets.PORT || 8080
 const bodyParser = require('body-parser')
 var auth = require('./app/middleware/authentication')
 var adminAuth = require('./app/middleware/adminAuth')
@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // Middlewares
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(session({secret: process.env.EXPRESS_SESSION_SECRET, saveUninitialized: true, resave: true}))
+app.use(session({secret: secrets.EXPRESS_SESSION_SECRET, saveUninitialized: true, resave: true}))
 
 // Route for the Main page
 app.get('/', auth, (req, res) => {
